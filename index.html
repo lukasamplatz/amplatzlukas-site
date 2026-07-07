@@ -217,13 +217,16 @@
     </div>
     <div class="viewer-frame reveal">
       <model-viewer
+        id="dwModel"
         src="dentalwall.glb"
         poster="dentalwall-poster.png"
         alt="Interactive 3D model of the Dental Wall — full anatomical arch"
         camera-controls touch-action="pan-y"
         auto-rotate auto-rotate-delay="600" rotation-per-second="16deg"
         interaction-prompt="auto"
-        shadow-intensity="0.9" exposure="1.1"
+        environment-image="https://modelviewer.dev/shared-assets/environments/spruit_sunrise_1k_HDR.jpg"
+        exposure="0.85" tone-mapping="neutral"
+        shadow-intensity="1" shadow-softness="0.75"
         style="width:100%;height:min(68vh,560px);background:transparent;">
         <button slot="ar-button" class="ar-btn" data-i18n="v3d_ar">View on your wall</button>
         <div slot="progress-bar"></div>
@@ -605,6 +608,23 @@
     entries.forEach(e=>{ if(e.isIntersecting){ e.target.classList.add("in"); io.unobserve(e.target);} });
   },{threshold:.12});
   document.querySelectorAll(".reveal").forEach(el=>io.observe(el));
+
+  /* Give the 3D model a matte bone finish (works whatever material the GLB has) */
+  (function styleModel(){
+    const mv = document.getElementById("dwModel");
+    if(!mv) return;
+    mv.addEventListener("load", ()=>{
+      try{
+        const mats = mv.model && mv.model.materials ? mv.model.materials : [];
+        mats.forEach(m=>{
+          const p = m.pbrMetallicRoughness;
+          p.setBaseColorFactor([0.913,0.882,0.824,1]); // bone / --bone
+          p.setMetallicFactor(0);
+          p.setRoughnessFactor(0.72);
+        });
+      }catch(e){/* older API / no materials — leave as-is */}
+    });
+  })();
 </script>
 
 <!-- ===========================================================
