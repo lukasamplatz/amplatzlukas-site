@@ -109,7 +109,17 @@
   .btn-ghost:hover{border-color:var(--brass);color:var(--brass);}
 
   .art{position:relative;min-height:380px;display:flex;align-items:center;justify-content:center;}
-  .art img{width:100%;max-width:400px;height:auto;filter:drop-shadow(0 30px 60px rgba(0,0,0,.5));}
+  .slideshow{position:relative;width:100%;max-width:420px;margin:0 auto;aspect-ratio:1/1;border-radius:18px;overflow:hidden;box-shadow:0 30px 60px rgba(0,0,0,.5);border:1px solid var(--line);background:#1b1c20;}
+  .slides{position:absolute;inset:0;}
+  .slide{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;opacity:0;transition:opacity .8s ease;}
+  .slide.is-active{opacity:1;}
+  .sl-nav{position:absolute;top:50%;transform:translateY(-50%);width:38px;height:38px;border-radius:50%;border:0;cursor:pointer;background:rgba(22,23,26,.55);color:var(--bone);font-size:22px;line-height:1;display:flex;align-items:center;justify-content:center;backdrop-filter:blur(4px);transition:background .2s;z-index:2;}
+  .sl-nav:hover{background:var(--brass);color:#221c10;}
+  .sl-prev{left:10px;} .sl-next{right:10px;}
+  .sl-dots{position:absolute;bottom:12px;left:0;right:0;display:flex;gap:7px;justify-content:center;z-index:2;}
+  .sl-dots button{width:7px;height:7px;padding:0;border-radius:50%;border:0;cursor:pointer;background:rgba(233,225,210,.45);transition:all .2s;}
+  .sl-dots button.on{background:var(--brass);width:20px;border-radius:4px;}
+  @media(hover:none){ .sl-nav{display:none;} }
 
   section{padding:72px 0;}
   .sec-head{max-width:640px;margin-bottom:36px;}
@@ -195,7 +205,7 @@
   </div>
   <div class="wrap hero-grid">
     <div>
-      <span class="eyebrow" data-i18n="hero_eyebrow">As seen on Instagram · 130K likes</span>
+      <span class="eyebrow" data-i18n="hero_eyebrow">As seen on Instagram · 130,000 likes · 2,000,000 views</span>
       <h1 data-i18n="hero_title"><em>Dental</em><br>Wall.</h1>
       <p class="lede" data-i18n="hero_lede">A two-metre anatomical wall installation — printed tooth by tooth, mounted like an exhibit.</p>
 
@@ -213,7 +223,20 @@
     </div>
 
     <div class="art">
-      <img src="teeth-animated.svg" alt="The Dental Wall — full set of 32 3D-printed teeth" />
+      <div class="slideshow" id="heroSlides">
+        <div class="slides">
+          <img class="slide is-active" src="slide1.jpg" alt="The finished Dental Wall mounted on a clinic wall" fetchpriority="high">
+          <img class="slide" src="slide2.jpg" alt="Five finished 3D-printed teeth" loading="lazy">
+          <img class="slide" src="slide3.jpg" alt="Front teeth with mounting brackets and screws" loading="lazy">
+          <img class="slide" src="slide4.jpg" alt="The full kit — teeth, screws, adhesive, template and tools" loading="lazy">
+          <img class="slide" src="slide5.jpg" alt="Render grid of the sculpted tooth models" loading="lazy">
+          <img class="slide" src="slide6.jpg" alt="Print-bed layout of the teeth" loading="lazy">
+          <img class="slide" src="slide7.jpg" alt="Print-bed layout of the teeth" loading="lazy">
+        </div>
+        <button class="sl-nav sl-prev" aria-label="Previous">‹</button>
+        <button class="sl-nav sl-next" aria-label="Next">›</button>
+        <div class="sl-dots" role="tablist"></div>
+      </div>
     </div>
   </div>
 </header>
@@ -383,7 +406,7 @@
       docTitle:"The Dental Wall — print-ready file or built & delivered",
       metaDesc:"The two-metre 3D-printed anatomical Dental Wall from the reel. Buy the print-ready STL kit, or order the finished installation built and shipped to your clinic.",
       nav_specs:"Specs", nav_buy:"Buy",
-      hero_eyebrow:"As seen on Instagram · 130K likes",
+      hero_eyebrow:"As seen on Instagram · 130,000 likes · 2,000,000 views",
       hero_title:"<em>Dental</em><br>Wall.",
       hero_lede:"A two-metre anatomical wall installation — printed tooth by tooth, mounted like an exhibit.",
       spec_tall:"tall", spec_teeth:"teeth", spec_time:"print time",
@@ -440,7 +463,7 @@
       docTitle:"Dental Wall — druckfertige Datei oder fertig geliefert",
       metaDesc:"Die zwei Meter hohe, 3D-gedruckte anatomische Dental Wall aus dem Reel. Kauf das druckfertige STL-Kit oder bestell die fertige Installation – gebaut und in deine Praxis geliefert.",
       nav_specs:"Daten", nav_buy:"Kaufen",
-      hero_eyebrow:"Auf Instagram gesehen · 130K Likes",
+      hero_eyebrow:"Auf Instagram gesehen · 130.000 Likes · 2.000.000 Views",
       hero_title:"<em>Dental</em><br>Wall.",
       hero_lede:"Eine zwei Meter hohe anatomische Wandinstallation – Zahn für Zahn gedruckt, montiert wie ein Ausstellungsstück.",
       spec_tall:"hoch", spec_teeth:"Zähne", spec_time:"Druckzeit",
@@ -497,7 +520,7 @@
       docTitle:"Dental Wall — file pronto per la stampa o installazione finita",
       metaDesc:"Dental Wall, l'installazione dentale anatomica alta due metri stampata in 3D, vista nel reel. Acquista il kit STL pronto per la stampa, oppure ordina l'installazione finita – costruita e spedita al tuo studio.",
       nav_specs:"Dettagli", nav_buy:"Acquista",
-      hero_eyebrow:"Vista su Instagram · 130K like",
+      hero_eyebrow:"Vista su Instagram · 130.000 like · 2.000.000 di visualizzazioni",
       hero_title:"<em>Dental</em><br>Wall.",
       hero_lede:"Un'installazione anatomica da parete alta due metri – stampata dente per dente, montata come un'opera da esposizione.",
       spec_tall:"d'altezza", spec_teeth:"denti", spec_time:"di stampa",
@@ -618,6 +641,58 @@
     entries.forEach(e=>{ if(e.isIntersecting){ e.target.classList.add("in"); io.unobserve(e.target);} });
   },{threshold:.12});
   document.querySelectorAll(".reveal").forEach(el=>io.observe(el));
+
+  /* Hero slideshow: auto-play, arrows, dots, swipe, missing-image safe */
+  (function slideshow(){
+    const root=document.getElementById("heroSlides"); if(!root) return;
+    let slides=[...root.querySelectorAll(".slide")];
+    const dotsWrap=root.querySelector(".sl-dots");
+    const reduce=window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+    let i=0, timer=null;
+
+    // drop any image that fails to load, keep the set clean
+    slides.forEach(img=>{
+      img.addEventListener("error",()=>{ img.remove(); rebuild(); });
+    });
+
+    function rebuild(){
+      slides=[...root.querySelectorAll(".slide")];
+      dotsWrap.innerHTML="";
+      slides.forEach((_,n)=>{
+        const b=document.createElement("button");
+        b.setAttribute("role","tab");
+        b.addEventListener("click",()=>{go(n);restart();});
+        dotsWrap.appendChild(b);
+      });
+      if(i>=slides.length) i=0;
+      paint();
+    }
+    function paint(){
+      slides.forEach((s,n)=>s.classList.toggle("is-active",n===i));
+      [...dotsWrap.children].forEach((d,n)=>d.classList.toggle("on",n===i));
+    }
+    function go(n){ i=(n+slides.length)%slides.length; paint(); }
+    function next(){ go(i+1); } function prev(){ go(i-1); }
+    function start(){ if(reduce||slides.length<2) return; timer=setInterval(next,3800); }
+    function restart(){ clearInterval(timer); start(); }
+
+    root.querySelector(".sl-next").addEventListener("click",()=>{next();restart();});
+    root.querySelector(".sl-prev").addEventListener("click",()=>{prev();restart();});
+    root.addEventListener("mouseenter",()=>clearInterval(timer));
+    root.addEventListener("mouseleave",start);
+
+    // swipe
+    let x0=null;
+    root.addEventListener("touchstart",e=>{x0=e.touches[0].clientX;},{passive:true});
+    root.addEventListener("touchend",e=>{
+      if(x0===null) return;
+      const dx=e.changedTouches[0].clientX-x0;
+      if(Math.abs(dx)>40){ dx<0?next():prev(); restart(); }
+      x0=null;
+    });
+
+    rebuild(); start();
+  })();
 
   /* Give the 3D model a matte bone finish (works whatever material the GLB has) */
   (function styleModel(){
