@@ -105,7 +105,7 @@
   .btn-ghost:hover{border-color:var(--brass);color:var(--brass);}
 
   .art{position:relative;min-height:380px;display:flex;align-items:center;justify-content:center;}
-  .art svg{width:100%;max-width:440px;height:auto;filter:drop-shadow(0 30px 60px rgba(0,0,0,.5));}
+  .art img{width:100%;max-width:400px;height:auto;filter:drop-shadow(0 30px 60px rgba(0,0,0,.5));}
 
   section{padding:72px 0;}
   .sec-head{max-width:640px;margin-bottom:36px;}
@@ -160,7 +160,7 @@
 
 <nav>
   <div class="wrap nav-in">
-    <a href="#top" class="brand">AMPLATZ<span>·</span>WALL</a>
+    <a href="#top" class="brand">DENTAL<span>·</span>WALL</a>
     <div class="nav-right">
       <div class="lang" role="group" aria-label="Language">
         <button data-lang="en">EN</button>
@@ -197,8 +197,8 @@
       </div>
     </div>
 
-    <div class="art" aria-hidden="true">
-      <svg id="archSvg" viewBox="0 0 460 560" role="img" aria-label="Anatomical dental wall"></svg>
+    <div class="art">
+      <img src="teeth-animated.svg" alt="The Dental Wall — full anatomical arch of 3D-printed teeth" />
     </div>
   </div>
 </header>
@@ -316,7 +316,7 @@
 <footer>
   <div class="wrap foot-grid">
     <div>
-      <a href="#top" class="brand" style="text-decoration:none;">AMPLATZ<span style="color:var(--brass)">·</span>WALL</a>
+      <a href="#top" class="brand" style="text-decoration:none;">DENTAL<span style="color:var(--brass)">·</span>WALL</a>
       <p style="margin:10px 0 0;max-width:40ch;" data-i18n="foot_tag">The dental wall installation. Designed and printed in Bolzano (Bozen), Italy.</p>
     </div>
     <div>
@@ -556,48 +556,6 @@
         e.stopImmediatePropagation();
         alert(T[LANG].alert);
       }, true);
-    });
-  })();
-
-  /* Build the dental-wall hero graphic (16 teeth) */
-  (function buildArch(){
-    const svg = document.getElementById("archSvg");
-    const NS = "http://www.w3.org/2000/svg";
-    const defs = document.createElementNS(NS,"defs");
-    defs.innerHTML =
-      '<radialGradient id="toothG" cx="38%" cy="30%" r="80%">'+
-      '<stop offset="0%" stop-color="#f3ecdd"/>'+
-      '<stop offset="55%" stop-color="#e2d8c3"/>'+
-      '<stop offset="100%" stop-color="#b9ad95"/>'+
-      '</radialGradient>'+
-      '<filter id="soft" x="-30%" y="-30%" width="160%" height="160%">'+
-      '<feDropShadow dx="0" dy="4" stdDeviation="6" flood-color="#000" flood-opacity="0.35"/>'+
-      '</filter>';
-    svg.appendChild(defs);
-    const g = document.createElementNS(NS,"g");
-    g.setAttribute("filter","url(#soft)");
-    svg.appendChild(g);
-
-    const cx=230, cy=210, rx=150, ry=250, N=16, startDeg=-128, endDeg=128;
-    for(let i=0;i<N;i++){
-      const t=i/(N-1), deg=startDeg+t*(endDeg-startDeg), rad=deg*Math.PI/180;
-      const x=cx+rx*Math.sin(rad), y=cy-ry*Math.cos(rad);
-      const centerness=1-Math.min(Math.abs(deg)/128,1);
-      const w=20+(1-centerness)*20, h=34-(1-centerness)*10, round=8+(1-centerness)*10;
-      const tooth=document.createElementNS(NS,"rect");
-      tooth.setAttribute("x",x-w/2); tooth.setAttribute("y",y-h/2);
-      tooth.setAttribute("width",w); tooth.setAttribute("height",h);
-      tooth.setAttribute("rx",round); tooth.setAttribute("ry",round*0.8);
-      tooth.setAttribute("fill","url(#toothG)");
-      tooth.setAttribute("transform","rotate("+deg+" "+x+" "+y+")");
-      tooth.style.opacity="0";
-      g.appendChild(tooth);
-    }
-    const reduce=window.matchMedia("(prefers-reduced-motion: reduce)").matches;
-    g.querySelectorAll("rect").forEach((tooth,i)=>{
-      if(reduce){ tooth.style.opacity="1"; return; }
-      tooth.style.transition="opacity .5s ease";
-      setTimeout(()=>{ tooth.style.opacity="1"; }, 120+i*55);
     });
   })();
 
