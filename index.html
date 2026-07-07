@@ -637,21 +637,7 @@
     b.addEventListener("click", ()=> applyLang(b.getAttribute("data-lang")));
   });
 
-  /* If the Snipcart API key hasn't been set yet, intercept the buy
-     buttons and show a friendly reminder instead of a silent failure. */
-  (function checkoutGuard(){
-    const snip = document.getElementById("snipcart");
-    const key = snip ? (snip.getAttribute("data-api-key") || "") : "";
-    const notSet = !key || key.indexOf("YOUR_SNIPCART") === 0;
-    if(!notSet) return;
-    document.querySelectorAll(".snipcart-add-item").forEach(btn=>{
-      btn.addEventListener("click", (e)=>{
-        e.preventDefault();
-        e.stopImmediatePropagation();
-        alert(T[LANG].alert);
-      }, true);
-    });
-  })();
+/* checkout handled directly by Snipcart */
 
   /* Scroll reveals */
   const io=new IntersectionObserver((entries)=>{
