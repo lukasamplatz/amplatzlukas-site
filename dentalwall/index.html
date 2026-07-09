@@ -304,6 +304,13 @@
           data-item-url="https://amplatzlukas.com/dentalwall/"
           data-item-shippable="false"
           data-item-description="Print-ready STL files, emailed after purchase"
+          data-item-custom1-name="Invoice type"
+          data-item-custom1-options="Private purchase|I need a B2B invoice"
+          data-item-custom1-value="Private purchase"
+          data-item-custom2-name="VAT number / P.IVA (optional)"
+          data-item-custom2-placeholder="IT01234567890"
+          data-item-custom3-name="Codice Univoco / PEC (optional, Italy)"
+          data-item-custom3-placeholder="ABCDEFG"
           data-i18n="file_btn">Buy the file — €369</button>
         <p class="fineprint" data-i18n="file_fine">Recommended: ~15 kg PLA and a 250 mm+ print bed. Total ~175 h across all parts.</p>
       </div>
@@ -331,6 +338,13 @@
           data-item-custom1-name="Transport insurance"
           data-item-custom1-options="No|Yes (+€35)[+35.00]"
           data-item-custom1-value="No"
+          data-item-custom2-name="Invoice type"
+          data-item-custom2-options="Private purchase|I need a B2B invoice"
+          data-item-custom2-value="Private purchase"
+          data-item-custom3-name="VAT number / P.IVA (optional)"
+          data-item-custom3-placeholder="IT01234567890"
+          data-item-custom4-name="Codice Univoco / PEC (optional, Italy)"
+          data-item-custom4-placeholder="ABCDEFG"
           data-i18n="fin_btn">Order the finished set →</button>
         <p class="fineprint" data-i18n="fin_fine">Worldwide shipping, calculated at checkout from your address. Flat-packed in 4 boxes; non-EU orders may incur import duties. Optional transport insurance (+€35) at checkout.</p>
       </div>
@@ -743,32 +757,6 @@
      =========================================================== -->
 <div id="snipcart-templates">
 
-  <billing section="bottom">
-    <fieldset class="snipcart-form__set">
-      <div class="snipcart-form__field">
-        <div class="snipcart-form__field-checkbox">
-          <snipcart-checkbox name="b2bInvoice"></snipcart-checkbox>
-          <snipcart-label for="b2bInvoice" class="snipcart__font--tiny snipcart-form__label--checkbox">
-            I need a B2B invoice · Ich benötige eine B2B-Rechnung · Ho bisogno di fattura B2B
-          </snipcart-label>
-        </div>
-      </div>
-
-      <div class="snipcart-form__field">
-        <snipcart-label class="snipcart__font--tiny" for="vatNumber">
-          P.IVA / VAT number (B2B)
-        </snipcart-label>
-        <snipcart-input name="vatNumber"></snipcart-input>
-      </div>
-
-      <div class="snipcart-form__field">
-        <snipcart-label class="snipcart__font--tiny" for="codiceUnivoco">
-          Codice Univoco / PEC (Italia, B2B)
-        </snipcart-label>
-        <snipcart-input name="codiceUnivoco"></snipcart-input>
-      </div>
-    </fieldset>
-  </billing>
 
   <payment section="top">
     <fieldset class="snipcart-form__set">
