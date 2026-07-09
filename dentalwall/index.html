@@ -1,0 +1,761 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>The Dental Wall — print-ready file or built & delivered</title>
+<meta id="metaDesc" name="description" content="The two-metre 3D-printed anatomical Dental Wall from the reel. Buy the print-ready STL kit, or order the finished installation built and shipped to your clinic." />
+
+<!--
+  ============================================================
+  PAYMENTS — read this first
+  ------------------------------------------------------------
+  This page does NOT process cards on its own. Paste your two
+  checkout links into the CHECKOUT object in the <script> at the
+  bottom of this file.
+
+  This page uses SNIPCART for checkout (buyer pays in a popup, never
+  leaves the page). To go live:
+
+    1) Create a free Snipcart account, switch to LIVE, copy your
+       PUBLIC API KEY, and paste it into the #snipcart tag at the
+       bottom of this file (replace ZjQ2YzcwZmMtYzk2NC00ZTNkLWFiNmUtZDA1NDdmYThhZGIzNjM5MTkwMDIwNTEzMzgxODM1).
+    2) In the Snipcart dashboard > Shipping, add shipping rates.
+       For worldwide address-based cost, either:
+         - set rate zones (Italy / EU / Rest of world), OR
+         - connect a live carrier (DHL/UPS) for exact rates.
+       Buyer's address then picks the rate at checkout automatically.
+    3) THE FILE (€369 + VAT) is digital: shippable = false. Snipcart takes
+       payment + email; you send the STL kit manually (no portal).
+    4) THE PIECE (€1,990 + VAT): shippable = true, ships worldwide. The
+       "Transport insurance" option (+€35) is offered at checkout.
+
+  Until the API key is set, the buy buttons show a short reminder.
+  ============================================================
+-->
+
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Archivo:wght@400;500;600;700;800;900&family=IBM+Plex+Mono:wght@400;500;600&family=IBM+Plex+Sans:wght@400;500;600&display=swap" rel="stylesheet" />
+
+<!-- Snipcart (the cart / checkout). Handles worldwide address-based shipping + insurance option. -->
+<link rel="preconnect" href="https://app.snipcart.com" />
+<link rel="preconnect" href="https://cdn.snipcart.com" />
+<link rel="stylesheet" href="https://cdn.snipcart.com/themes/v3.7.3/default/snipcart.css" />
+
+<style>
+  :root{
+    --wall:#16171a;
+    --wall-2:#1e2024;
+    --bone:#E9E1D2;
+    --bone-dim:#b6ad9d;
+    --muted:#8c8579;
+    --brass:#CDA05A;
+    --brass-2:#a97f3c;
+    --line:rgba(233,225,210,.12);
+    --line-2:rgba(233,225,210,.20);
+    --radius:14px;
+    --maxw:1120px;
+  }
+  *{box-sizing:border-box;}
+  html{scroll-behavior:smooth;}
+  body{margin:0;background:var(--wall);color:var(--bone);font-family:"IBM Plex Sans",system-ui,sans-serif;font-size:17px;line-height:1.6;-webkit-font-smoothing:antialiased;}
+  a{color:inherit;}
+  .wrap{max-width:var(--maxw);margin:0 auto;padding:0 24px;}
+  .mono{font-family:"IBM Plex Mono",monospace;}
+  .eyebrow{font-family:"IBM Plex Mono",monospace;font-size:12.5px;letter-spacing:.22em;text-transform:uppercase;color:var(--brass);}
+  h1,h2,h3{font-family:"Archivo",sans-serif;font-weight:800;letter-spacing:-.02em;line-height:1.02;margin:0;}
+
+  /* Nav */
+  nav{position:sticky;top:0;z-index:50;background:rgba(22,23,26,.78);backdrop-filter:blur(10px);border-bottom:1px solid var(--line);}
+  .nav-in{display:flex;align-items:center;justify-content:space-between;height:64px;gap:12px;}
+  .brand{font-family:"Archivo",sans-serif;font-weight:900;letter-spacing:.02em;font-size:16px;text-decoration:none;white-space:nowrap;}
+  .brand span{color:var(--brass);}
+  .nav-right{display:flex;align-items:center;gap:14px;}
+  .lang{display:flex;gap:2px;border:1px solid var(--line-2);border-radius:999px;padding:3px;}
+  .lang button{background:none;border:0;color:var(--bone-dim);font-family:"IBM Plex Mono",monospace;font-size:12px;letter-spacing:.08em;padding:5px 9px;border-radius:999px;cursor:pointer;}
+  .lang button.active{background:var(--brass);color:#221c10;font-weight:600;}
+  .nav-links{display:flex;gap:6px;align-items:center;}
+  .nav-links a{font-size:14px;text-decoration:none;color:var(--bone-dim);padding:8px 12px;border-radius:999px;}
+  .nav-links a.pill{border:1px solid var(--line-2);color:var(--bone);}
+  .nav-links a.pill:hover{border-color:var(--brass);color:var(--brass);}
+  .nav-cart{background:none;font-family:"IBM Plex Sans",sans-serif;font-size:14px;color:var(--bone);border:1px solid var(--line-2);border-radius:999px;padding:8px 12px;cursor:pointer;}
+  .nav-cart:hover{border-color:var(--brass);color:var(--brass);}
+  @media(max-width:680px){ .nav-links a.ghost{display:none;} }
+
+  /* Hero */
+  .hero{position:relative;overflow:hidden;padding:64px 0 40px;}
+  .hero-media{position:absolute;inset:0;z-index:0;overflow:hidden;background:#16171a url("hero-reel-poster.jpg") center/cover no-repeat;}
+  .hero-bg{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;opacity:.5;}
+  .hero-overlay{position:absolute;inset:0;background:linear-gradient(90deg,rgba(22,23,26,.95) 0%,rgba(22,23,26,.78) 42%,rgba(22,23,26,.5) 100%),linear-gradient(0deg,rgba(22,23,26,.9) 0%,rgba(22,23,26,.35) 55%,rgba(22,23,26,.55) 100%);}
+  @media(prefers-reduced-motion:reduce){ .hero-bg{display:none;} }
+  .hero-grid{display:grid;grid-template-columns:1.05fr .95fr;gap:40px;align-items:center;position:relative;z-index:2;}
+  @media(max-width:900px){ .hero-grid{grid-template-columns:1fr;gap:8px;} }
+  .hero h1{font-size:clamp(3rem,9vw,6.4rem);margin:18px 0 0;}
+  .hero h1 em{font-style:normal;color:var(--brass);}
+  .lede{color:var(--bone-dim);font-size:clamp(1.05rem,2.4vw,1.3rem);max-width:32ch;margin:20px 0 0;}
+  .spec-strip{display:flex;flex-wrap:wrap;gap:0;margin-top:30px;border:1px solid var(--line);border-radius:var(--radius);overflow:hidden;}
+  .spec{flex:1 1 0;min-width:88px;padding:14px 16px;border-right:1px solid var(--line);}
+  .spec:last-child{border-right:0;}
+  .spec b{display:block;font-family:"Archivo",sans-serif;font-weight:800;font-size:1.35rem;letter-spacing:-.02em;}
+  .spec small{font-family:"IBM Plex Mono",monospace;font-size:11px;letter-spacing:.14em;text-transform:uppercase;color:var(--muted);}
+  .hero-cta{display:flex;gap:12px;flex-wrap:wrap;margin-top:28px;}
+
+  .btn{display:inline-flex;align-items:center;gap:10px;justify-content:center;font-family:"IBM Plex Sans",sans-serif;font-weight:600;font-size:15px;padding:14px 22px;border-radius:999px;text-decoration:none;cursor:pointer;border:1px solid transparent;transition:transform .12s ease, background .2s ease, border-color .2s ease;}
+  .btn:active{transform:translateY(1px);}
+  .btn-primary{background:var(--brass);color:#221c10;font-weight:700;}
+  .btn-primary:hover{background:#dcb26c;}
+  .btn-ghost{border-color:var(--line-2);color:var(--bone);}
+  .btn-ghost:hover{border-color:var(--brass);color:var(--brass);}
+
+  .art{position:relative;min-height:380px;display:flex;align-items:center;justify-content:center;}
+  #gallery{border-top:1px solid var(--line);}
+  .slideshow{position:relative;width:100%;max-width:560px;margin:0 auto;aspect-ratio:1/1;border-radius:18px;overflow:hidden;box-shadow:0 30px 60px rgba(0,0,0,.5);border:1px solid var(--line);background:#1b1c20;}
+  .slides{position:absolute;inset:0;}
+  .slide{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;opacity:0;transition:opacity .8s ease;}
+  .slide.is-active{opacity:1;}
+  .sl-nav{position:absolute;top:50%;transform:translateY(-50%);width:38px;height:38px;border-radius:50%;border:0;cursor:pointer;background:rgba(22,23,26,.55);color:var(--bone);font-size:22px;line-height:1;display:flex;align-items:center;justify-content:center;backdrop-filter:blur(4px);transition:background .2s;z-index:2;}
+  .sl-nav:hover{background:var(--brass);color:#221c10;}
+  .sl-prev{left:10px;} .sl-next{right:10px;}
+  .sl-dots{position:absolute;bottom:12px;left:0;right:0;display:flex;gap:7px;justify-content:center;z-index:2;}
+  .sl-dots button{width:7px;height:7px;padding:0;border-radius:50%;border:0;cursor:pointer;background:rgba(233,225,210,.45);transition:all .2s;}
+  .sl-dots button.on{background:var(--brass);width:20px;border-radius:4px;}
+  @media(hover:none){ .sl-nav{display:none;} }
+
+  section{padding:72px 0;}
+  .sec-head{max-width:640px;margin-bottom:36px;}
+  .sec-head h2{font-size:clamp(1.8rem,4.5vw,2.7rem);margin-top:12px;}
+  .sec-head p{color:var(--bone-dim);margin:14px 0 0;}
+
+  #view3d{border-top:1px solid var(--line);}
+  .viewer-frame{position:relative;border:1px solid var(--line);border-radius:20px;background:radial-gradient(120% 80% at 50% 20%, #202127 0%, #141519 70%);overflow:hidden;box-shadow:0 24px 60px rgba(0,0,0,.35);}
+  model-viewer{--poster-color:transparent;}
+  .ar-btn{position:absolute;bottom:16px;left:50%;transform:translateX(-50%);background:var(--brass);color:#221c10;font-weight:700;border:0;border-radius:999px;padding:11px 20px;font-family:"IBM Plex Sans",sans-serif;font-size:14px;cursor:pointer;box-shadow:0 6px 18px rgba(0,0,0,.35);}
+  .ar-btn:not([data-visible]){display:none;}
+  #shop{border-top:1px solid var(--line);}
+  .cards{display:grid;grid-template-columns:1fr 1fr;gap:20px;}
+  @media(max-width:820px){ .cards{grid-template-columns:1fr;} }
+  .card{background:var(--wall-2);border:1px solid var(--line);border-radius:20px;padding:30px;display:flex;flex-direction:column;position:relative;}
+  .card.feature{border-color:var(--brass-2);box-shadow:0 0 0 1px rgba(205,160,90,.15), 0 24px 60px rgba(0,0,0,.35);}
+  .card-tag{font-family:"IBM Plex Mono",monospace;font-size:11px;letter-spacing:.2em;text-transform:uppercase;color:var(--brass);}
+  .card h3{font-size:1.7rem;margin:10px 0 4px;}
+  .card .sub{color:var(--muted);font-size:14.5px;}
+  .price{display:flex;align-items:baseline;gap:8px;margin:22px 0 4px;}
+  .price .amt{font-family:"Archivo",sans-serif;font-weight:900;font-size:2.8rem;letter-spacing:-.03em;}
+  .price .plus{color:var(--bone-dim);font-size:15px;}
+  .avail{font-family:"IBM Plex Mono",monospace;font-size:12px;letter-spacing:.05em;color:var(--bone-dim);margin-bottom:20px;}
+  .list{list-style:none;padding:0;margin:0 0 26px;display:flex;flex-direction:column;gap:12px;}
+  .list li{position:relative;padding-left:28px;font-size:15px;color:var(--bone);}
+  .list li::before{content:"";position:absolute;left:0;top:8px;width:14px;height:14px;border-radius:50%;background:radial-gradient(circle at 40% 35%, #efe7d8, #b7ac97);}
+  .card .btn{width:100%;margin-top:auto;}
+  .fineprint{font-size:12.5px;color:var(--muted);margin-top:14px;text-align:center;line-height:1.5;}
+
+  .spectable{border:1px solid var(--line);border-radius:var(--radius);overflow:hidden;}
+  .row{display:grid;grid-template-columns:230px 1fr;gap:20px;padding:16px 22px;border-bottom:1px solid var(--line);}
+  .row:last-child{border-bottom:0;}
+  .row dt{font-family:"IBM Plex Mono",monospace;font-size:12px;letter-spacing:.12em;text-transform:uppercase;color:var(--muted);}
+  .row dd{margin:0;color:var(--bone);}
+  @media(max-width:620px){ .row{grid-template-columns:1fr;gap:4px;} }
+
+  .faq{border-top:1px solid var(--line);}
+  details{border-bottom:1px solid var(--line);padding:6px 0;}
+  summary{list-style:none;cursor:pointer;padding:18px 0;display:flex;justify-content:space-between;gap:20px;font-family:"Archivo",sans-serif;font-weight:600;font-size:1.1rem;}
+  summary::-webkit-details-marker{display:none;}
+  summary .plus{color:var(--brass);font-weight:400;font-size:1.5rem;line-height:1;transition:transform .2s ease;}
+  details[open] summary .plus{transform:rotate(45deg);}
+  details p{margin:0 0 20px;color:var(--bone-dim);max-width:72ch;}
+
+  footer{border-top:1px solid var(--line);padding:44px 0;color:var(--muted);font-size:14px;}
+  .foot-grid{display:flex;justify-content:space-between;flex-wrap:wrap;gap:20px;align-items:flex-start;}
+  footer a{color:var(--bone-dim);text-decoration:none;}
+  footer a:hover{color:var(--brass);}
+
+  .reveal{opacity:0;transform:translateY(18px);transition:opacity .7s ease, transform .7s ease;}
+  .reveal.in{opacity:1;transform:none;}
+  @media(prefers-reduced-motion:reduce){ .reveal{opacity:1;transform:none;transition:none;} html{scroll-behavior:auto;} }
+  :focus-visible{outline:2px solid var(--brass);outline-offset:3px;border-radius:4px;}
+</style>
+</head>
+<body>
+
+<nav>
+  <div class="wrap nav-in">
+    <a href="#top" class="brand">DENTAL<span>·</span>WALL</a>
+    <div class="nav-right">
+      <div class="lang" role="group" aria-label="Language">
+        <button data-lang="en">EN</button>
+        <button data-lang="de">DE</button>
+        <button data-lang="it">IT</button>
+      </div>
+      <div class="nav-links">
+        <a href="#specs" class="ghost" data-i18n="nav_specs">Specs</a>
+        <a href="#faq" class="ghost">FAQ</a>
+        <a href="#shop" class="pill" data-i18n="nav_buy">Buy</a>
+        <button class="pill nav-cart snipcart-checkout" aria-label="Cart">🛒 <span class="snipcart-items-count">0</span></button>
+      </div>
+    </div>
+  </div>
+</nav>
+
+<header id="top" class="hero">
+  <div class="hero-media" aria-hidden="true">
+    <video class="hero-bg" autoplay muted loop playsinline preload="metadata" poster="hero-reel-poster.jpg">
+      <source src="hero-reel.mp4" type="video/mp4" />
+    </video>
+    <div class="hero-overlay"></div>
+  </div>
+  <div class="wrap hero-grid">
+    <div>
+      <span class="eyebrow" data-i18n="hero_eyebrow">As seen on Instagram · 130,000 likes · 2,000,000 views</span>
+      <h1 data-i18n="hero_title"><em>Dental</em><br>Wall.</h1>
+      <p class="lede" data-i18n="hero_lede">A two-metre anatomical wall installation — printed tooth by tooth, mounted like an exhibit.</p>
+
+      <div class="spec-strip mono" aria-label="Build specifications">
+        <div class="spec"><b>2 m</b><small data-i18n="spec_tall">tall</small></div>
+        <div class="spec"><b>32</b><small data-i18n="spec_teeth">teeth</small></div>
+        <div class="spec"><b>15 kg</b><small>PLA</small></div>
+        <div class="spec"><b>175 h</b><small data-i18n="spec_time">print time</small></div>
+      </div>
+
+      <div class="hero-cta">
+        <a href="#shop" class="btn btn-primary" data-i18n="hero_cta1">Get the file — €369</a>
+        <a href="#shop" class="btn btn-ghost" data-i18n="hero_cta2">Order it built →</a>
+      </div>
+    </div>
+  </div>
+</header>
+
+<section id="gallery">
+  <div class="wrap">
+    <div class="sec-head reveal" style="text-align:center;margin:0 auto 30px;">
+      <span class="eyebrow" data-i18n="gallery_eyebrow">What you get</span>
+      <h2 data-i18n="gallery_title">From the print bed to your wall.</h2>
+      <p data-i18n="gallery_lede" style="margin-left:auto;margin-right:auto;">Real photos of the printed teeth, the mounting kit, and the finished installation.</p>
+    </div>
+    <div class="slideshow reveal" id="heroSlides">
+      <div class="slides">
+        <img class="slide is-active" src="slide1.jpg" alt="The finished Dental Wall mounted on a clinic wall" fetchpriority="high">
+        <img class="slide" src="slide2.jpg" alt="Five finished 3D-printed teeth" loading="lazy">
+        <img class="slide" src="slide3.jpg" alt="Front teeth with mounting brackets and screws" loading="lazy">
+        <img class="slide" src="slide4.jpg" alt="The full kit — teeth, screws, adhesive, template and tools" loading="lazy">
+        <img class="slide" src="slide5.jpg" alt="Render grid of the sculpted tooth models" loading="lazy">
+        <img class="slide" src="slide6.jpg" alt="Print-bed layout of the teeth" loading="lazy">
+        <img class="slide" src="slide7.jpg" alt="Print-bed layout of the teeth" loading="lazy">
+      </div>
+      <button class="sl-nav sl-prev" aria-label="Previous">‹</button>
+      <button class="sl-nav sl-next" aria-label="Next">›</button>
+      <div class="sl-dots" role="tablist"></div>
+    </div>
+  </div>
+</section>
+
+<section id="view3d">
+  <div class="wrap">
+    <div class="sec-head reveal" style="text-align:center;margin:0 auto 30px;">
+      <span class="eyebrow" data-i18n="v3d_eyebrow">See every tooth</span>
+      <h2 data-i18n="v3d_title">Turn it over.</h2>
+      <p data-i18n="v3d_lede" style="margin-left:auto;margin-right:auto;">Drag to spin the whole Dental Wall in 3D — every cusp and groove, exactly as it prints.</p>
+    </div>
+    <div class="viewer-frame reveal">
+      <model-viewer
+        id="dwModel"
+        src="dentalwall.glb"
+        poster="dentalwall-poster.png"
+        alt="Interactive 3D model of the Dental Wall — full set of 32 teeth"
+        camera-controls touch-action="pan-y"
+        auto-rotate auto-rotate-delay="600" rotation-per-second="16deg"
+        interaction-prompt="auto"
+        environment-image="https://modelviewer.dev/shared-assets/environments/spruit_sunrise_1k_HDR.jpg"
+        exposure="0.85" tone-mapping="neutral"
+        shadow-intensity="1" shadow-softness="0.75"
+        style="width:100%;height:min(68vh,560px);background:transparent;">
+        <button slot="ar-button" class="ar-btn" data-i18n="v3d_ar">View on your wall</button>
+        <div slot="progress-bar"></div>
+      </model-viewer>
+    </div>
+  </div>
+</section>
+
+<section id="shop">
+  <div class="wrap">
+    <div class="sec-head reveal">
+      <span class="eyebrow" data-i18n="shop_eyebrow">Two ways to get it</span>
+      <h2 data-i18n="shop_title">Print it yourself, or have it built.</h2>
+      <p data-i18n="shop_lede">Same design, same 1:1 mounting template. Choose the file if you have a printer and the time — or the finished set if you just want it on the wall.</p>
+    </div>
+
+    <div class="cards">
+      <div class="card reveal">
+        <span class="card-tag" data-i18n="file_tag">The file</span>
+        <h3 data-i18n="file_title">Print-ready STL kit</h3>
+        <div class="sub" data-i18n="file_sub">Sent by email after purchase — print at your own pace.</div>
+        <div class="price"><span class="amt">€369</span><span class="plus" data-i18n="file_plus">+ VAT</span></div>
+        <div class="avail" data-i18n="file_avail">Emailed after payment · within 24 h</div>
+        <ul class="list">
+          <li data-i18n="file_li1">All 32 teeth as separate, pre-oriented, print-ready STL files</li>
+          <li data-i18n="file_li2">Full-scale (1:1) wall-mounting template — exact placement for every tooth</li>
+          <li data-i18n="file_li3">Print &amp; assembly guide: settings, filament, orientation, joining</li>
+          <li data-i18n="file_li4">Single-clinic licence — print it once for your own space</li>
+        </ul>
+        <button class="btn btn-primary snipcart-add-item"
+          data-item-id="dental-wall-file"
+          data-item-name="Dental Wall — STL kit"
+          data-item-price="369.00"
+          data-item-url="https://amplatzlukas.com/dentalwall/"
+          data-item-shippable="false"
+          data-item-description="Print-ready STL files, emailed after purchase"
+          data-item-custom1-name="Invoice type"
+          data-item-custom1-options="Private purchase|I need a B2B invoice"
+          data-item-custom1-value="Private purchase"
+          data-item-custom2-name="P.IVA / VAT number (B2B only)"
+          data-item-custom2-type="text"
+          data-item-custom2-required="false"
+          data-item-custom3-name="Codice Univoco / PEC (Italian B2B only)"
+          data-item-custom3-type="text"
+          data-item-custom3-required="false"
+          data-i18n="file_btn">Buy the file — €369</button>
+        <p class="fineprint" data-i18n="file_fine">Recommended: ~15 kg PLA and a 250 mm+ print bed. Total ~175 h across all parts.</p>
+      </div>
+
+      <div class="card feature reveal">
+        <span class="card-tag" data-i18n="fin_tag">The piece</span>
+        <h3 data-i18n="fin_title">Built, shipped &amp; ready to mount</h3>
+        <div class="sub" data-i18n="fin_sub">We print and finish it — you hang it up.</div>
+        <div class="price"><span class="amt">€1,990</span><span class="plus" data-i18n="fin_plus">+ VAT + shipping</span></div>
+        <div class="avail" data-i18n="fin_avail">Made to order · est. delivery ~2 months</div>
+        <ul class="list">
+          <li data-i18n="fin_li1">The complete Dental Wall, printed and finished — all 32 teeth</li>
+          <li data-i18n="fin_li2">Mounting hardware included: screws and adhesive</li>
+          <li data-i18n="fin_li3">Printed step-by-step mounting instructions</li>
+          <li data-i18n="fin_li4">1:1 placement template so it goes up straight, first time</li>
+        </ul>
+        <button class="btn btn-primary snipcart-add-item"
+          data-item-id="dental-wall-finished"
+          data-item-name="Dental Wall — finished set"
+          data-item-price="1990.00"
+          data-item-url="https://amplatzlukas.com/dentalwall/"
+          data-item-shippable="true"
+          data-item-weight="28000"
+          data-item-description="Built, shipped worldwide, ready to mount"
+          data-item-custom1-name="Transport insurance"
+          data-item-custom1-options="No|Yes (+€35)[+35.00]"
+          data-item-custom1-value="No"
+          data-item-custom2-name="Invoice type"
+          data-item-custom2-options="Private purchase|I need a B2B invoice"
+          data-item-custom2-value="Private purchase"
+          data-item-custom3-name="P.IVA / VAT number (B2B only)"
+          data-item-custom3-type="text"
+          data-item-custom3-required="false"
+          data-item-custom4-name="Codice Univoco / PEC (Italian B2B only)"
+          data-item-custom4-type="text"
+          data-item-custom4-required="false"
+          data-i18n="fin_btn">Order the finished set →</button>
+        <p class="fineprint" data-i18n="fin_fine">Worldwide shipping, calculated at checkout from your address. Flat-packed in 4 boxes; non-EU orders may incur import duties. Optional transport insurance (+€35) at checkout.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="specs">
+  <div class="wrap">
+    <div class="sec-head reveal">
+      <span class="eyebrow" data-i18n="specs_eyebrow">The details</span>
+      <h2 data-i18n="specs_title">What you're working with.</h2>
+    </div>
+    <dl class="spectable reveal">
+      <div class="row"><dt data-i18n="spec_r1_t">Finished size</dt><dd data-i18n="spec_r1_d">Roughly 2 metres tall — needs a clear stretch of wall.</dd></div>
+      <div class="row"><dt data-i18n="spec_r2_t">Parts</dt><dd data-i18n="spec_r2_d">32 teeth, each printed and mounted individually along the wall.</dd></div>
+      <div class="row"><dt data-i18n="spec_r3_t">Material</dt><dd data-i18n="spec_r3_d">~15 kg of PLA. Bone / ivory tone as pictured; other colours on request for the finished set.</dd></div>
+      <div class="row"><dt data-i18n="spec_r4_t">Print time (file)</dt><dd data-i18n="spec_r4_d">~175 hours total. Each tooth prints separately, so you can run it in stages.</dd></div>
+      <div class="row"><dt data-i18n="spec_r5_t">Printer needed (file)</dt><dd data-i18n="spec_r5_d">A bed of ~250 mm or larger is recommended. No supports headaches — parts come pre-oriented.</dd></div>
+      <div class="row"><dt data-i18n="spec_r6_t">Mounting</dt><dd data-i18n="spec_r6_d">Screws + adhesive and a full-scale template. A drill and an afternoon is all it takes.</dd></div>
+    </dl>
+  </div>
+</section>
+
+<section class="faq" id="faq">
+  <div class="wrap">
+    <div class="sec-head reveal">
+      <span class="eyebrow" data-i18n="faq_eyebrow">Good to know</span>
+      <h2 data-i18n="faq_title">Questions.</h2>
+    </div>
+    <div class="reveal">
+      <details>
+        <summary><span data-i18n="faq_q1">What printer do I need for the file?</span> <span class="plus">+</span></summary>
+        <p data-i18n="faq_a1">A print bed around 250 mm or larger is ideal. The Dental Wall is split into 32 separate teeth, each printed on its own, so you don't need one huge machine — you just need the time (~175 hours total across all parts) and roughly 15 kg of PLA.</p>
+      </details>
+      <details>
+        <summary><span data-i18n="faq_q2">Can I print copies and sell them?</span> <span class="plus">+</span></summary>
+        <p data-i18n="faq_a2">The €369 licence covers printing one Dental Wall for your own clinic or space. If you're a lab or studio that wants to print and sell the piece to others, message me for a commercial licence.</p>
+      </details>
+      <details>
+        <summary><span data-i18n="faq_q3">How is the finished set shipped?</span> <span class="plus">+</span></summary>
+        <p data-i18n="faq_a3">Flat-packed — the teeth ship as individual pieces with the mounting template, screws, adhesive and printed instructions. You mount them on-site against the template. Shipping is calculated by destination; for freight-heavy or non-EU destinations I may follow up with an exact quote.</p>
+      </details>
+      <details>
+        <summary><span data-i18n="faq_q4">How long until the finished set arrives?</span> <span class="plus">+</span></summary>
+        <p data-i18n="faq_a4">It's made to order and printing alone runs ~175 hours, so plan for around two months (about 8 weeks) from order to delivery. You'll get a confirmation the moment you order, and an update when it ships.</p>
+      </details>
+      <details>
+        <summary><span data-i18n="faq_q5">Do I need special tools to mount it?</span> <span class="plus">+</span></summary>
+        <p data-i18n="faq_a5">A drill and the included screws and adhesive. The full-scale template shows exactly where each tooth goes, so alignment is straightforward. Budget an afternoon.</p>
+      </details>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="wrap foot-grid">
+    <div>
+      <a href="#top" class="brand" style="text-decoration:none;">DENTAL<span style="color:var(--brass)">·</span>WALL</a>
+      <p style="margin:10px 0 0;max-width:40ch;" data-i18n="foot_tag">The Dental Wall installation. Designed and printed in Bolzano (Bozen), Italy.</p>
+      <p style="margin:14px 0 0;font-size:13px;line-height:1.7;">
+        <strong style="color:var(--bone);">DENTAG Italia S.r.l.</strong><br>
+        <span data-i18n="foot_sub">Sistemi dentali</span><br>
+        Via Negrelli, 4 · 39100 Bolzano (BZ) · Italia
+      </p>
+    </div>
+    <div>
+      <p style="margin:0 0 6px;"><span data-i18n="foot_contact">Contact</span> · <a href="mailto:info@dentag-italia.com">info@dentag-italia.com</a></p>
+      <p style="margin:0 0 6px;">Tel. <a href="tel:+390471256233">+39 0471 256 233</a> · Fax +39 0471 256 244</p>
+      <p style="margin:0 0 6px;">Instagram · <a href="https://instagram.com/amplatzlukas">@amplatzlukas</a></p>
+      <p style="margin:14px 0 0;font-size:12px;color:var(--muted);">P.IVA / VAT: <strong>[ADD VAT NUMBER]</strong> · REA: [ADD REA]</p>
+      <p style="margin:6px 0 0;font-size:12px;color:var(--muted);" data-i18n="foot_legal">Add links to your terms of sale, right of withdrawal, refund policy and privacy policy before going live.</p>
+    </div>
+  </div>
+</footer>
+
+<script>
+  /* ============================================================
+     Checkout is handled by Snipcart (see the #snipcart tag at the
+     bottom of this file). Paste your PUBLIC API KEY there to go live.
+     ============================================================ */
+
+  /* ============================================================
+     2) TRANSLATIONS
+     ============================================================ */
+  const T = {
+    en: {
+      docTitle:"The Dental Wall — print-ready file or built & delivered",
+      metaDesc:"The two-metre 3D-printed anatomical Dental Wall from the reel. Buy the print-ready STL kit, or order the finished installation built and shipped to your clinic.",
+      nav_specs:"Specs", nav_buy:"Buy",
+      hero_eyebrow:"As seen on Instagram · 130,000 likes · 2,000,000 views",
+      hero_title:"<em>Dental</em><br>Wall.",
+      hero_lede:"A two-metre anatomical wall installation — printed tooth by tooth, mounted like an exhibit.",
+      spec_tall:"tall", spec_teeth:"teeth", spec_time:"print time",
+      hero_cta1:"Get the file — €369", hero_cta2:"Order it built →",
+      v3d_eyebrow:"See every tooth",
+      v3d_title:"Turn it over.",
+      v3d_lede:"Drag to spin the whole Dental Wall in 3D — every cusp and groove, exactly as it prints.",
+      v3d_ar:"View on your wall",
+      gallery_eyebrow:"What you get",
+      gallery_title:"From the print bed to your wall.",
+      gallery_lede:"Real photos of the printed teeth, the mounting kit, and the finished installation.",
+      shop_eyebrow:"Two ways to get it",
+      shop_title:"Print it yourself, or have it built.",
+      shop_lede:"Same design, same 1:1 mounting template. Choose the file if you have a printer and the time — or the finished set if you just want it on the wall.",
+      file_tag:"The file", file_title:"Print-ready STL kit",
+      file_sub:"Sent by email after purchase — print at your own pace.",
+      file_avail:"Emailed after payment · within 24 h",
+      file_li1:"All 32 teeth as separate, pre-oriented, print-ready STL files",
+      file_li2:"Full-scale (1:1) wall-mounting template — exact placement for every tooth",
+      file_li3:"Print & assembly guide: settings, filament, orientation, joining",
+      file_li4:"Single-clinic licence — print it once for your own space",
+      file_btn:"Buy the file — €369",
+      file_fine:"Recommended: ~15 kg PLA and a 250 mm+ print bed. Total ~175 h across all parts.",
+      fin_tag:"The piece", fin_title:"Built, shipped & ready to mount",
+      fin_sub:"We print and finish it — you hang it up.",
+      file_plus:"+ VAT",
+      fin_plus:"+ VAT + shipping", fin_avail:"Made to order · est. delivery ~2 months",
+      fin_li1:"The complete Dental Wall, printed and finished — all 32 teeth",
+      fin_li2:"Mounting hardware included: screws and adhesive",
+      fin_li3:"Printed step-by-step mounting instructions",
+      fin_li4:"1:1 placement template so it goes up straight, first time",
+      fin_btn:"Order the finished set →",
+      fin_fine:"Worldwide shipping, calculated at checkout from your address. Flat-packed in 4 boxes; non-EU orders may incur import duties. Optional transport insurance (+€35) at checkout.",
+      specs_eyebrow:"The details", specs_title:"What you're working with.",
+      spec_r1_t:"Finished size", spec_r1_d:"Roughly 2 metres tall — needs a clear stretch of wall.",
+      spec_r2_t:"Parts", spec_r2_d:"32 teeth, each printed and mounted individually along the wall.",
+      spec_r3_t:"Material", spec_r3_d:"~15 kg of PLA. Bone / ivory tone as pictured; other colours on request for the finished set.",
+      spec_r4_t:"Print time (file)", spec_r4_d:"~175 hours total. Each tooth prints separately, so you can run it in stages.",
+      spec_r5_t:"Printer needed (file)", spec_r5_d:"A bed of ~250 mm or larger is recommended. No supports headaches — parts come pre-oriented.",
+      spec_r6_t:"Mounting", spec_r6_d:"Screws + adhesive and a full-scale template. A drill and an afternoon is all it takes.",
+      faq_eyebrow:"Good to know", faq_title:"Questions.",
+      faq_q1:"What printer do I need for the file?",
+      faq_a1:"A print bed around 250 mm or larger is ideal. The Dental Wall is split into 32 separate teeth, each printed on its own, so you don't need one huge machine — you just need the time (~175 hours total across all parts) and roughly 15 kg of PLA.",
+      faq_q2:"Can I print copies and sell them?",
+      faq_a2:"The €369 licence covers printing one Dental Wall for your own clinic or space. If you're a lab or studio that wants to print and sell the piece to others, message me for a commercial licence.",
+      faq_q3:"How is the finished set shipped?",
+      faq_a3:"Flat-packed — the teeth ship as individual pieces (4 boxes) with the mounting template, screws, adhesive and printed instructions. Shipping is calculated automatically at checkout from your delivery address, anywhere in the world. Orders outside the EU may be charged local import duties on arrival, and you can add transport insurance at checkout.",
+      faq_q4:"How long until the finished set arrives?",
+      faq_a4:"It's made to order and printing alone runs ~175 hours, so plan for around two months (about 8 weeks) from order to delivery. You'll get a confirmation the moment you order, and an update when it ships.",
+      faq_q5:"Do I need special tools to mount it?",
+      faq_a5:"A drill and the included screws and adhesive. The full-scale template shows exactly where each tooth goes, so alignment is straightforward. Budget an afternoon.",
+      foot_tag:"The Dental Wall installation. Designed and printed in Bolzano (Bozen), Italy.",
+      foot_contact:"Contact",
+      foot_sub:"Dental systems",
+      foot_legal:"Add links to your terms of sale, right of withdrawal, refund policy and privacy policy before going live.",
+      alert:"The shop isn't connected yet.\n\nAdd your Snipcart public API key in the #snipcart tag near the bottom of this file to enable checkout."
+    },
+    de: {
+      docTitle:"Dental Wall — druckfertige Datei oder fertig geliefert",
+      metaDesc:"Die zwei Meter hohe, 3D-gedruckte anatomische Dental Wall aus dem Reel. Kauf das druckfertige STL-Kit oder bestell die fertige Installation – gebaut und in deine Praxis geliefert.",
+      nav_specs:"Daten", nav_buy:"Kaufen",
+      hero_eyebrow:"Auf Instagram gesehen · 130.000 Likes · 2.000.000 Views",
+      hero_title:"<em>Dental</em><br>Wall.",
+      hero_lede:"Eine zwei Meter hohe anatomische Wandinstallation – Zahn für Zahn gedruckt, montiert wie ein Ausstellungsstück.",
+      spec_tall:"hoch", spec_teeth:"Zähne", spec_time:"Druckzeit",
+      hero_cta1:"Datei sichern — 369 €", hero_cta2:"Fertig bestellen →",
+      v3d_eyebrow:"Jeder Zahn im Detail",
+      v3d_title:"Dreh sie um.",
+      v3d_lede:"Zieh, um die komplette Dental Wall in 3D zu drehen – jede Wölbung und Rille, genau wie im Druck.",
+      v3d_ar:"An deiner Wand ansehen",
+      gallery_eyebrow:"Das bekommst du",
+      gallery_title:"Vom Druckbett an deine Wand.",
+      gallery_lede:"Echte Fotos der gedruckten Zähne, des Montagesets und der fertigen Installation.",
+      shop_eyebrow:"Zwei Wege dazu",
+      shop_title:"Selbst drucken oder fertig bestellen.",
+      shop_lede:"Gleiches Design, gleiche 1:1-Montageschablone. Nimm die Datei, wenn du einen Drucker und Zeit hast – oder das fertige Set, wenn es einfach nur an die Wand soll.",
+      file_tag:"Die Datei", file_title:"Druckfertiges STL-Kit",
+      file_sub:"Nach dem Kauf per E-Mail – druck in deinem Tempo.",
+      file_avail:"Per E-Mail nach Zahlung · innerhalb von 24 Std.",
+      file_li1:"Alle 32 Zähne als einzelne, vorausgerichtete, druckfertige STL-Dateien",
+      file_li2:"Montageschablone in Originalgröße (1:1) – exakte Position für jeden Zahn",
+      file_li3:"Druck- & Montageanleitung: Einstellungen, Filament, Ausrichtung, Verbindung",
+      file_li4:"Lizenz für eine Praxis – einmal für die eigenen Räume drucken",
+      file_btn:"Datei kaufen — 369 €",
+      file_fine:"Empfohlen: ~15 kg PLA und ein Druckbett ab 250 mm. Insgesamt ~175 Std. über alle Teile.",
+      fin_tag:"Das Objekt", fin_title:"Gebaut, geliefert & montagefertig",
+      fin_sub:"Wir drucken und finishen – du hängst sie auf.",
+      file_plus:"+ MwSt.",
+      fin_plus:"+ MwSt. + Versand", fin_avail:"Auf Bestellung gefertigt · Lieferung ca. 2 Monate",
+      fin_li1:"Die komplette Dental Wall, gedruckt und fertig verarbeitet – alle 32 Zähne",
+      fin_li2:"Montagematerial inklusive: Schrauben und Kleber",
+      fin_li3:"Gedruckte Schritt-für-Schritt-Montageanleitung",
+      fin_li4:"1:1-Positionierungsschablone – gerade an der Wand, gleich beim ersten Mal",
+      fin_btn:"Fertiges Set bestellen →",
+      fin_fine:"Weltweiter Versand, an der Kasse anhand deiner Adresse berechnet. Flach verpackt in 4 Kartons; bei Bestellungen außerhalb der EU können Einfuhrzölle anfallen. Optionale Transportversicherung (+35 €) an der Kasse.",
+      specs_eyebrow:"Die Details", specs_title:"Womit du es zu tun hast.",
+      spec_r1_t:"Fertige Größe", spec_r1_d:"Rund 2 Meter hoch – braucht eine freie Wandfläche.",
+      spec_r2_t:"Teile", spec_r2_d:"32 Zähne, einzeln gedruckt und einzeln an der Wand montiert.",
+      spec_r3_t:"Material", spec_r3_d:"~15 kg PLA. Knochen-/Elfenbeinton wie abgebildet; andere Farben für das fertige Set auf Anfrage.",
+      spec_r4_t:"Druckzeit (Datei)", spec_r4_d:"~175 Std. insgesamt. Jeder Zahn druckt separat – in Etappen machbar.",
+      spec_r5_t:"Benötigter Drucker (Datei)", spec_r5_d:"Empfohlen wird ein Druckbett ab ~250 mm. Kein Support-Ärger – Teile sind vorausgerichtet.",
+      spec_r6_t:"Montage", spec_r6_d:"Schrauben + Kleber und eine Schablone in Originalgröße. Ein Akkuschrauber und ein Nachmittag genügen.",
+      faq_eyebrow:"Gut zu wissen", faq_title:"Fragen.",
+      faq_q1:"Welchen Drucker brauche ich für die Datei?",
+      faq_a1:"Ideal ist ein Druckbett ab etwa 250 mm. Die Dental Wall ist in 32 einzelne Zähne aufgeteilt, jeder wird separat gedruckt – du brauchst also keine riesige Maschine, sondern nur Zeit (~175 Std. insgesamt) und rund 15 kg PLA.",
+      faq_q2:"Darf ich Kopien drucken und verkaufen?",
+      faq_a2:"Die Lizenz für 369 € deckt den Druck einer Dental Wall für die eigene Praxis oder die eigenen Räume ab. Wenn du als Labor oder Studio das Objekt drucken und weiterverkaufen möchtest, melde dich für eine kommerzielle Lizenz.",
+      faq_q3:"Wie wird das fertige Set versendet?",
+      faq_a3:"Flach verpackt – die Zähne werden als Einzelteile (4 Kartons) mit Montageschablone, Schrauben, Kleber und gedruckter Anleitung versendet. Der Versand wird an der Kasse automatisch anhand deiner Lieferadresse berechnet, weltweit. Bei Zielen außerhalb der EU können bei Ankunft Einfuhrzölle anfallen, und du kannst an der Kasse eine Transportversicherung hinzufügen.",
+      faq_q4:"Wie lange dauert es, bis das fertige Set ankommt?",
+      faq_a4:"Es wird auf Bestellung gefertigt und allein der Druck dauert ~175 Std. – rechne mit rund zwei Monaten (etwa 8 Wochen) von der Bestellung bis zur Lieferung. Du erhältst sofort eine Bestätigung und ein Update beim Versand.",
+      faq_q5:"Brauche ich spezielles Werkzeug zur Montage?",
+      faq_a5:"Einen Akkuschrauber sowie die mitgelieferten Schrauben und den Kleber. Die Schablone in Originalgröße zeigt genau, wohin jeder Zahn kommt – die Ausrichtung ist unkompliziert. Plane einen Nachmittag ein.",
+      foot_tag:"Die Dental-Wall-Installation. Entworfen und gedruckt in Bozen, Italien.",
+      foot_contact:"Kontakt",
+      foot_sub:"Dentalsysteme",
+      foot_legal:"Vor dem Livegang Links zu AGB, Widerrufsrecht, Rückgabebedingungen und Datenschutz ergänzen.",
+      alert:"Der Shop ist noch nicht verbunden.\n\nFüge deinen öffentlichen Snipcart-API-Key im #snipcart-Tag am Ende dieser Datei ein, um die Kasse zu aktivieren."
+    },
+    it: {
+      docTitle:"Dental Wall — file pronto per la stampa o installazione finita",
+      metaDesc:"Dental Wall, l'installazione dentale anatomica alta due metri stampata in 3D, vista nel reel. Acquista il kit STL pronto per la stampa, oppure ordina l'installazione finita – costruita e spedita al tuo studio.",
+      nav_specs:"Dettagli", nav_buy:"Acquista",
+      hero_eyebrow:"Vista su Instagram · 130.000 like · 2.000.000 di visualizzazioni",
+      hero_title:"<em>Dental</em><br>Wall.",
+      hero_lede:"Un'installazione anatomica da parete alta due metri – stampata dente per dente, montata come un'opera da esposizione.",
+      spec_tall:"d'altezza", spec_teeth:"denti", spec_time:"di stampa",
+      hero_cta1:"Ottieni il file — 369 €", hero_cta2:"Ordina il set finito →",
+      v3d_eyebrow:"Ogni dente da vicino",
+      v3d_title:"Girala.",
+      v3d_lede:"Trascina per ruotare l’intera Dental Wall in 3D – ogni cuspide e solco, esattamente come viene stampata.",
+      v3d_ar:"Guardala sul tuo muro",
+      gallery_eyebrow:"Cosa ricevi",
+      gallery_title:"Dal piano di stampa alla tua parete.",
+      gallery_lede:"Foto reali dei denti stampati, del kit di montaggio e dell’installazione finita.",
+      shop_eyebrow:"Due modi per averla",
+      shop_title:"Stampala tu, o falla costruire.",
+      shop_lede:"Stesso design, stessa dima di montaggio in scala 1:1. Scegli il file se hai una stampante e il tempo – o il set finito se vuoi solo appenderla al muro.",
+      file_tag:"Il file", file_title:"Kit STL pronto per la stampa",
+      file_sub:"Inviato via email dopo l'acquisto – stampa con calma.",
+      file_avail:"Via email dopo il pagamento · entro 24 h",
+      file_li1:"Tutti i 32 denti come file STL separati, già orientati e pronti per la stampa",
+      file_li2:"Dima di montaggio a grandezza naturale (1:1) – posizione esatta di ogni dente",
+      file_li3:"Guida a stampa e assemblaggio: impostazioni, filamento, orientamento, giunzioni",
+      file_li4:"Licenza per un singolo studio – stampala una volta per il tuo spazio",
+      file_btn:"Acquista il file — 369 €",
+      file_fine:"Consigliato: ~15 kg di PLA e un piano di stampa da 250 mm+. In totale ~175 h su tutti i pezzi.",
+      fin_tag:"L'opera", fin_title:"Costruita, spedita e pronta da montare",
+      fin_sub:"La stampiamo e rifiniamo noi – tu la appendi.",
+      file_plus:"+ IVA",
+      fin_plus:"+ IVA + spedizione", fin_avail:"Su ordinazione · consegna stimata ~2 mesi",
+      fin_li1:"La Dental Wall completa, stampata e rifinita – tutti i 32 denti",
+      fin_li2:"Materiale di montaggio incluso: viti e colla",
+      fin_li3:"Istruzioni di montaggio stampate, passo dopo passo",
+      fin_li4:"Dima di posizionamento 1:1 per montarla dritta al primo colpo",
+      fin_btn:"Ordina il set finito →",
+      fin_fine:"Spedizione in tutto il mondo, calcolata al checkout in base al tuo indirizzo. Imballata in 4 scatole; per ordini fuori dall'UE possono esserci dazi d'importazione. Assicurazione di trasporto opzionale (+35 €) al checkout.",
+      specs_eyebrow:"I dettagli", specs_title:"Con cosa hai a che fare.",
+      spec_r1_t:"Dimensione finita", spec_r1_d:"Circa 2 metri di altezza – serve una parete libera.",
+      spec_r2_t:"Pezzi", spec_r2_d:"32 denti, stampati e montati singolarmente lungo la parete.",
+      spec_r3_t:"Materiale", spec_r3_d:"~15 kg di PLA. Tono osso/avorio come in foto; altri colori su richiesta per il set finito.",
+      spec_r4_t:"Tempo di stampa (file)", spec_r4_d:"~175 ore totali. Ogni dente si stampa separatamente, quindi puoi procedere a tappe.",
+      spec_r5_t:"Stampante necessaria (file)", spec_r5_d:"Consigliato un piano da ~250 mm o più. Niente grattacapi con i supporti: i pezzi sono già orientati.",
+      spec_r6_t:"Montaggio", spec_r6_d:"Viti + colla e una dima a grandezza naturale. Bastano un trapano e un pomeriggio.",
+      faq_eyebrow:"Buono a sapersi", faq_title:"Domande.",
+      faq_q1:"Che stampante mi serve per il file?",
+      faq_a1:"L'ideale è un piano di stampa da circa 250 mm o più. La Dental Wall è divisa in 32 denti separati, ciascuno stampato singolarmente, quindi non serve una macchina enorme – servono solo il tempo (~175 ore in totale) e circa 15 kg di PLA.",
+      faq_q2:"Posso stampare copie e venderle?",
+      faq_a2:"La licenza da 369 € copre la stampa di una Dental Wall per il tuo studio o spazio. Se sei un laboratorio o uno studio e vuoi stampare e rivendere l'opera, scrivimi per una licenza commerciale.",
+      faq_q3:"Come viene spedito il set finito?",
+      faq_a3:"Spedita smontata – i denti arrivano come pezzi singoli (4 scatole) con dima di montaggio, viti, colla e istruzioni stampate. La spedizione è calcolata automaticamente al checkout in base al tuo indirizzo di consegna, in tutto il mondo. Per destinazioni fuori dall'UE possono essere applicati dazi d'importazione all'arrivo, e al checkout puoi aggiungere un'assicurazione di trasporto.",
+      faq_q4:"Quanto tempo prima che arrivi il set finito?",
+      faq_a4:"È realizzata su ordinazione e la sola stampa richiede ~175 ore, quindi calcola circa due mesi (all'incirca 8 settimane) dall'ordine alla consegna. Ricevi una conferma subito dopo l'ordine e un aggiornamento alla spedizione.",
+      faq_q5:"Servono attrezzi speciali per il montaggio?",
+      faq_a5:"Un trapano e le viti e la colla incluse. La dima a grandezza naturale mostra esattamente dove va ogni dente, quindi l'allineamento è semplice. Metti in conto un pomeriggio.",
+      foot_tag:"L'installazione Dental Wall. Progettata e stampata a Bolzano (Bozen), Italia.",
+      foot_contact:"Contatto",
+      foot_sub:"Sistemi dentali",
+      foot_legal:"Aggiungi i link a condizioni di vendita, diritto di recesso, condizioni di reso e privacy prima di andare online.",
+      alert:"Il negozio non è ancora collegato.\n\nAggiungi la tua chiave API pubblica di Snipcart nel tag #snipcart in fondo a questo file per attivare il checkout."
+    }
+  };
+
+  let LANG = "en";
+
+  function applyLang(lang){
+    if(!T[lang]) lang = "en";
+    LANG = lang;
+    const dict = T[lang];
+    document.documentElement.lang = lang;
+    document.title = dict.docTitle;
+    const md = document.getElementById("metaDesc");
+    if(md) md.setAttribute("content", dict.metaDesc);
+
+    document.querySelectorAll("[data-i18n]").forEach(el=>{
+      const key = el.getAttribute("data-i18n");
+      const val = dict[key];
+      if(val === undefined) return;
+      if(val.indexOf("<") !== -1) el.innerHTML = val;
+      else el.textContent = val;
+    });
+
+    document.querySelectorAll(".lang button").forEach(b=>{
+      b.classList.toggle("active", b.getAttribute("data-lang") === lang);
+    });
+
+    const url = new URL(window.location);
+    url.searchParams.set("lang", lang);
+    history.replaceState(null, "", url);
+  }
+
+  // choose initial language: ?lang= wins, else browser, else en
+  (function initLang(){
+    const params = new URLSearchParams(window.location.search);
+    let l = params.get("lang");
+    if(!l){
+      const nav = (navigator.language || "en").toLowerCase();
+      if(nav.startsWith("de")) l = "de";
+      else if(nav.startsWith("it")) l = "it";
+      else l = "en";
+    }
+    applyLang(l);
+  })();
+
+  document.querySelectorAll(".lang button").forEach(b=>{
+    b.addEventListener("click", ()=> applyLang(b.getAttribute("data-lang")));
+  });
+
+/* checkout handled directly by Snipcart */
+
+  /* Scroll reveals */
+  const io=new IntersectionObserver((entries)=>{
+    entries.forEach(e=>{ if(e.isIntersecting){ e.target.classList.add("in"); io.unobserve(e.target);} });
+  },{threshold:.12});
+  document.querySelectorAll(".reveal").forEach(el=>io.observe(el));
+
+  /* Hero slideshow: auto-play, arrows, dots, swipe, missing-image safe */
+  (function slideshow(){
+    const root=document.getElementById("heroSlides"); if(!root) return;
+    let slides=[...root.querySelectorAll(".slide")];
+    const dotsWrap=root.querySelector(".sl-dots");
+    const reduce=window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+    let i=0, timer=null;
+
+    // drop any image that fails to load, keep the set clean
+    slides.forEach(img=>{
+      img.addEventListener("error",()=>{ img.remove(); rebuild(); });
+    });
+    // also prune images that already failed before this script ran
+    function prune(){ root.querySelectorAll(".slide").forEach(img=>{ if(img.complete && img.naturalWidth===0) img.remove(); }); }
+
+    function rebuild(){
+      slides=[...root.querySelectorAll(".slide")];
+      dotsWrap.innerHTML="";
+      slides.forEach((_,n)=>{
+        const b=document.createElement("button");
+        b.setAttribute("role","tab");
+        b.addEventListener("click",()=>{go(n);restart();});
+        dotsWrap.appendChild(b);
+      });
+      if(i>=slides.length) i=0;
+      paint();
+    }
+    function paint(){
+      slides.forEach((s,n)=>s.classList.toggle("is-active",n===i));
+      [...dotsWrap.children].forEach((d,n)=>d.classList.toggle("on",n===i));
+    }
+    function go(n){ i=(n+slides.length)%slides.length; paint(); }
+    function next(){ go(i+1); } function prev(){ go(i-1); }
+    function start(){ if(reduce||slides.length<2) return; timer=setInterval(next,3800); }
+    function restart(){ clearInterval(timer); start(); }
+
+    root.querySelector(".sl-next").addEventListener("click",()=>{next();restart();});
+    root.querySelector(".sl-prev").addEventListener("click",()=>{prev();restart();});
+    root.addEventListener("mouseenter",()=>clearInterval(timer));
+    root.addEventListener("mouseleave",start);
+
+    // swipe
+    let x0=null;
+    root.addEventListener("touchstart",e=>{x0=e.touches[0].clientX;},{passive:true});
+    root.addEventListener("touchend",e=>{
+      if(x0===null) return;
+      const dx=e.changedTouches[0].clientX-x0;
+      if(Math.abs(dx)>40){ dx<0?next():prev(); restart(); }
+      x0=null;
+    });
+
+    prune(); rebuild(); start();
+  })();
+  /* Give the 3D model a matte bone finish (works whatever material the GLB has) */
+  (function styleModel(){
+    const mv = document.getElementById("dwModel");
+    if(!mv) return;
+    mv.addEventListener("load", ()=>{
+      try{
+        const mats = mv.model && mv.model.materials ? mv.model.materials : [];
+        mats.forEach(m=>{
+          const p = m.pbrMetallicRoughness;
+          p.setBaseColorFactor([0.913,0.882,0.824,1]); // bone / --bone
+          p.setMetallicFactor(0);
+          p.setRoughnessFactor(0.72);
+        });
+      }catch(e){/* older API / no materials — leave as-is */}
+    });
+  })();
+</script>
+
+<!-- ===========================================================
+     SNIPCART SETTINGS
+     Replace ZjQ2YzcwZmMtYzk2NC00ZTNkLWFiNmUtZDA1NDdmYThhZGIzNjM5MTkwMDIwNTEzMzgxODM1 with your public API key.
+     Shipping (worldwide, by address) + the insurance option are
+     configured in your Snipcart dashboard. See notes at top of file.
+     =========================================================== -->
+<div hidden id="snipcart" data-api-key="ZjQ2YzcwZmMtYzk2NC00ZTNkLWFiNmUtZDA1NDdmYThhZGIzNjM5MTkwMDIwNTEzMzgxODM1" data-config-modal-style="side"></div>
+<script async src="https://cdn.snipcart.com/themes/v3.7.3/default/snipcart.js"></script>
+<!-- model-viewer (interactive 3D + AR) -->
+<script type="module" src="https://ajax.googleapis.com/ajax/libs/model-viewer/4.3.1/model-viewer.min.js"></script>
+</body>
+</html>
