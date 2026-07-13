@@ -6,42 +6,11 @@
 <title>The Dental Wall — print-ready file or built & delivered</title>
 <meta id="metaDesc" name="description" content="The two-metre 3D-printed anatomical Dental Wall from the reel. Buy the print-ready STL kit, or order the finished installation built and shipped to your clinic." />
 
-<!--
-  ============================================================
-  PAYMENTS — read this first
-  ------------------------------------------------------------
-  This page does NOT process cards on its own. Paste your two
-  checkout links into the CHECKOUT object in the <script> at the
-  bottom of this file.
-
-  This page uses SNIPCART for checkout (buyer pays in a popup, never
-  leaves the page). To go live:
-
-    1) Create a free Snipcart account, switch to LIVE, copy your
-       PUBLIC API KEY, and paste it into the #snipcart tag at the
-       bottom of this file (replace ZjQ2YzcwZmMtYzk2NC00ZTNkLWFiNmUtZDA1NDdmYThhZGIzNjM5MTkwMDIwNTEzMzgxODM1).
-    2) In the Snipcart dashboard > Shipping, add shipping rates.
-       For worldwide address-based cost, either:
-         - set rate zones (Italy / EU / Rest of world), OR
-         - connect a live carrier (DHL/UPS) for exact rates.
-       Buyer's address then picks the rate at checkout automatically.
-    3) THE FILE (€369 + VAT) is digital: shippable = false. Snipcart takes
-       payment + email; you send the STL kit manually (no portal).
-    4) THE PIECE (€1,990 + VAT): shippable = true, ships worldwide. The
-       "Transport insurance" option (+€35) is offered at checkout.
-
-  Until the API key is set, the buy buttons show a short reminder.
-  ============================================================
--->
 
 <link rel="preconnect" href="https://fonts.googleapis.com" />
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
 <link href="https://fonts.googleapis.com/css2?family=Archivo:wght@400;500;600;700;800;900&family=IBM+Plex+Mono:wght@400;500;600&family=IBM+Plex+Sans:wght@400;500;600&display=swap" rel="stylesheet" />
 
-<!-- Snipcart (the cart / checkout). Handles worldwide address-based shipping + insurance option. -->
-<link rel="preconnect" href="https://app.snipcart.com" />
-<link rel="preconnect" href="https://cdn.snipcart.com" />
-<link rel="stylesheet" href="https://cdn.snipcart.com/themes/v3.7.3/default/snipcart.css" />
 
 <style>
   :root{
@@ -133,6 +102,26 @@
   .ar-btn{position:absolute;bottom:16px;left:50%;transform:translateX(-50%);background:var(--brass);color:#221c10;font-weight:700;border:0;border-radius:999px;padding:11px 20px;font-family:"IBM Plex Sans",sans-serif;font-size:14px;cursor:pointer;box-shadow:0 6px 18px rgba(0,0,0,.35);}
   .ar-btn:not([data-visible]){display:none;}
   #shop{border-top:1px solid var(--line);}
+  #request{border-top:1px solid var(--line);}
+  .reqform{max-width:640px;margin:0 auto;display:flex;flex-direction:column;gap:16px;}
+  .rf-row{display:grid;grid-template-columns:1fr 1fr;gap:16px;}
+  @media(max-width:560px){ .rf-row{grid-template-columns:1fr;} }
+  .rf-field{display:flex;flex-direction:column;gap:6px;}
+  .rf-field>span{font-family:"IBM Plex Mono",monospace;font-size:11px;letter-spacing:.1em;text-transform:uppercase;color:var(--muted);}
+  .rf-field input,.rf-field select,.rf-field textarea{
+    background:var(--wall-2);border:1px solid var(--line-2);border-radius:10px;
+    color:var(--bone);font-family:inherit;font-size:15px;padding:12px 14px;width:100%;
+  }
+  .rf-field textarea{resize:vertical;}
+  .rf-field input:focus,.rf-field select:focus,.rf-field textarea:focus{outline:none;border-color:var(--brass);}
+  .rf-field select{appearance:none;-webkit-appearance:none;cursor:pointer;}
+  .rf-check{display:flex;gap:11px;align-items:flex-start;font-size:14px;color:var(--bone-dim);line-height:1.5;margin-top:4px;}
+  .rf-check input{margin-top:3px;flex:0 0 auto;width:16px;height:16px;accent-color:var(--brass);}
+  .rf-check a{color:var(--brass);}
+  .rf-submit{width:100%;margin-top:6px;}
+  .rf-status{text-align:center;font-size:14.5px;margin:4px 0 0;min-height:1.2em;}
+  .rf-status.ok{color:#7fc9a0;}
+  .rf-status.err{color:#e0916f;}
   .cards{display:grid;grid-template-columns:1fr 1fr;gap:20px;}
   @media(max-width:820px){ .cards{grid-template-columns:1fr;} }
   .card{background:var(--wall-2);border:1px solid var(--line);border-radius:20px;padding:30px;display:flex;flex-direction:column;position:relative;}
@@ -174,7 +163,6 @@
   .reveal.in{opacity:1;transform:none;}
   @media(prefers-reduced-motion:reduce){ .reveal{opacity:1;transform:none;transition:none;} html{scroll-behavior:auto;} }
   :focus-visible{outline:2px solid var(--brass);outline-offset:3px;border-radius:4px;}
-  #snipcart-templates{display:none !important;}
 </style>
 </head>
 <body>
@@ -192,7 +180,6 @@
         <a href="#specs" class="ghost" data-i18n="nav_specs">Specs</a>
         <a href="#faq" class="ghost">FAQ</a>
         <a href="#shop" class="pill" data-i18n="nav_buy">Buy</a>
-        <button class="pill nav-cart snipcart-checkout" aria-label="Cart">🛒 <span class="snipcart-items-count">0</span></button>
       </div>
     </div>
   </div>
@@ -289,37 +276,23 @@
       <div class="card reveal">
         <span class="card-tag" data-i18n="file_tag">The file</span>
         <h3 data-i18n="file_title">Print-ready STL kit</h3>
-        <div class="sub" data-i18n="file_sub">Sent by email after purchase — print at your own pace.</div>
+        <div class="sub" data-i18n="file_sub">Request it below — we send the files once payment is confirmed.</div>
         <div class="price"><span class="amt">€369</span><span class="plus" data-i18n="file_plus">+ VAT</span></div>
-        <div class="avail" data-i18n="file_avail">Emailed after payment · within 24 h</div>
+        <div class="avail" data-i18n="file_avail">Sent by email after payment is confirmed</div>
         <ul class="list">
           <li data-i18n="file_li1">All 32 teeth as separate, pre-oriented, print-ready STL files</li>
           <li data-i18n="file_li2">Full-scale (1:1) wall-mounting template — exact placement for every tooth</li>
           <li data-i18n="file_li3">Print &amp; assembly guide: settings, filament, orientation, joining</li>
           <li data-i18n="file_li4">Single-clinic licence — print it once for your own space</li>
         </ul>
-        <button class="btn btn-primary snipcart-add-item"
-          data-item-id="dental-wall-file"
-          data-item-name="Dental Wall — STL kit"
-          data-item-price="369.00"
-          data-item-url="https://amplatzlukas.com/dentalwall/"
-          data-item-shippable="false"
-          data-item-description="Print-ready STL files, emailed after purchase"
-          data-item-custom1-name="Invoice type"
-          data-item-custom1-options="Private purchase|I need a B2B invoice"
-          data-item-custom1-value="Private purchase"
-          data-item-custom2-name="VAT number / P.IVA (optional)"
-          data-item-custom2-placeholder="IT01234567890"
-          data-item-custom3-name="Codice Univoco / PEC (optional, Italy)"
-          data-item-custom3-placeholder="ABCDEFG"
-          data-i18n="file_btn">Buy the file — €369</button>
+        <button class="btn btn-primary req-btn" data-product="file" data-i18n="file_btn">Buy the file — €369</button>
         <p class="fineprint" data-i18n="file_fine">Recommended: ~15 kg PLA and a 250 mm+ print bed. Total ~175 h across all parts.</p>
       </div>
 
       <div class="card feature reveal">
         <span class="card-tag" data-i18n="fin_tag">The piece</span>
         <h3 data-i18n="fin_title">Built, shipped &amp; ready to mount</h3>
-        <div class="sub" data-i18n="fin_sub">We print and finish it — you hang it up.</div>
+        <div class="sub" data-i18n="fin_sub">We print and finish it — you hang it up. Request a quote below.</div>
         <div class="price"><span class="amt">€1,990</span><span class="plus" data-i18n="fin_plus">+ VAT + shipping</span></div>
         <div class="avail" data-i18n="fin_avail">Made to order · est. delivery ~2 months</div>
         <ul class="list">
@@ -328,26 +301,8 @@
           <li data-i18n="fin_li3">Printed step-by-step mounting instructions</li>
           <li data-i18n="fin_li4">1:1 placement template so it goes up straight, first time</li>
         </ul>
-        <button class="btn btn-primary snipcart-add-item"
-          data-item-id="dental-wall-finished"
-          data-item-name="Dental Wall — finished set"
-          data-item-price="1990.00"
-          data-item-url="https://amplatzlukas.com/dentalwall/"
-          data-item-shippable="true"
-          data-item-weight="28000"
-          data-item-description="Built, shipped worldwide, ready to mount"
-          data-item-custom1-name="Transport insurance"
-          data-item-custom1-options="No|Yes (+€35)[+35.00]"
-          data-item-custom1-value="No"
-          data-item-custom2-name="Invoice type"
-          data-item-custom2-options="Private purchase|I need a B2B invoice"
-          data-item-custom2-value="Private purchase"
-          data-item-custom3-name="VAT number / P.IVA (optional)"
-          data-item-custom3-placeholder="IT01234567890"
-          data-item-custom4-name="Codice Univoco / PEC (optional, Italy)"
-          data-item-custom4-placeholder="ABCDEFG"
-          data-i18n="fin_btn">Order the finished set →</button>
-        <p class="fineprint" data-i18n="fin_fine">Worldwide shipping, calculated at checkout from your address. Flat-packed in 4 boxes; non-EU orders may incur import duties. Optional transport insurance (+€35) at checkout.</p>
+        <button class="btn btn-primary req-btn" data-product="finished" data-i18n="fin_btn">Order the finished set →</button>
+        <p class="fineprint" data-i18n="fin_fine">Shipped worldwide, flat-packed in 4 boxes. We confirm the exact shipping cost by email with your quote; non-EU orders may incur import duties. Prices exclude VAT.</p>
       </div>
     </div>
   </div>
@@ -367,6 +322,104 @@
       <div class="row"><dt data-i18n="spec_r5_t">Printer needed (file)</dt><dd data-i18n="spec_r5_d">A bed of ~250 mm or larger is recommended. No supports headaches — parts come pre-oriented.</dd></div>
       <div class="row"><dt data-i18n="spec_r6_t">Mounting</dt><dd data-i18n="spec_r6_d">Screws + adhesive and a full-scale template. A drill and an afternoon is all it takes.</dd></div>
     </dl>
+  </div>
+</section>
+
+<section id="request">
+  <div class="wrap">
+    <div class="sec-head reveal" style="text-align:center;margin:0 auto 30px;">
+      <span class="eyebrow" data-i18n="req_eyebrow">Request &amp; order</span>
+      <h2 data-i18n="req_title">Send your request.</h2>
+      <p data-i18n="req_lede" style="margin-left:auto;margin-right:auto;">Fill in the form and we'll reply by email with the final quote — shipping included for the finished set — and payment details. No card needed here.</p>
+    </div>
+
+    <form id="reqForm" class="reqform reveal" action="https://formspree.io/f/xojgqwwn" method="POST" novalidate>
+      <input type="hidden" name="_subject" value="Dental Wall — new request" />
+      <input type="text" name="_gotcha" style="display:none" tabindex="-1" autocomplete="off" />
+
+      <div class="rf-row">
+        <label class="rf-field">
+          <span data-i18n="rf_product">Product</span>
+          <select name="Product" id="rf-product" required>
+            <option value="STL file — €369 + VAT" data-i18n-opt="opt_file">STL file — €369 + VAT</option>
+            <option value="Finished set — €1,990 + VAT + shipping" data-i18n-opt="opt_fin">Finished set — €1,990 + VAT + shipping</option>
+            <option value="Not sure / I have a question" data-i18n-opt="opt_q">Not sure / I have a question</option>
+          </select>
+        </label>
+        <label class="rf-field" id="rf-insurance-wrap">
+          <span data-i18n="rf_insurance">Transport insurance (finished set)</span>
+          <select name="Transport insurance">
+            <option value="No" data-i18n-opt="opt_no">No</option>
+            <option value="Yes (+€35)" data-i18n-opt="opt_yes">Yes (+€35)</option>
+          </select>
+        </label>
+      </div>
+
+      <div class="rf-row">
+        <label class="rf-field">
+          <span data-i18n="rf_buyertype">Buyer type</span>
+          <select name="Buyer type" id="rf-buyertype">
+            <option value="Private" data-i18n-opt="opt_private">Private</option>
+            <option value="Business (B2B)" data-i18n-opt="opt_business">Business (B2B)</option>
+          </select>
+        </label>
+        <label class="rf-field">
+          <span data-i18n="rf_company">Company (if B2B)</span>
+          <input type="text" name="Company" autocomplete="organization" />
+        </label>
+      </div>
+
+      <div class="rf-row rf-b2b" hidden>
+        <label class="rf-field">
+          <span data-i18n="rf_vat">VAT number / P.IVA (B2B)</span>
+          <input type="text" name="VAT number" placeholder="IT01234567890" />
+        </label>
+        <label class="rf-field">
+          <span data-i18n="rf_codice">Codice Univoco / PEC (Italy, B2B)</span>
+          <input type="text" name="Codice Univoco / PEC" />
+        </label>
+      </div>
+
+      <div class="rf-row">
+        <label class="rf-field">
+          <span data-i18n="rf_name">Full name</span>
+          <input type="text" name="Name" autocomplete="name" required />
+        </label>
+        <label class="rf-field">
+          <span data-i18n="rf_email">Email</span>
+          <input type="email" name="email" autocomplete="email" required />
+        </label>
+      </div>
+
+      <div class="rf-row">
+        <label class="rf-field">
+          <span data-i18n="rf_phone">Phone (optional)</span>
+          <input type="tel" name="Phone" autocomplete="tel" />
+        </label>
+        <label class="rf-field">
+          <span data-i18n="rf_country">Country</span>
+          <input type="text" name="Country" autocomplete="country-name" required />
+        </label>
+      </div>
+
+      <label class="rf-field">
+        <span data-i18n="rf_address">Shipping address (for the finished set)</span>
+        <input type="text" name="Shipping address" autocomplete="street-address" />
+      </label>
+
+      <label class="rf-field">
+        <span data-i18n="rf_message">Message</span>
+        <textarea name="Message" rows="4"></textarea>
+      </label>
+
+      <label class="rf-check">
+        <input type="checkbox" name="Terms accepted" value="yes" required />
+        <span data-i18n="rf_terms">I accept the <a href="terms/" target="_blank" rel="noopener">Terms of Sale</a> and the privacy policy.</span>
+      </label>
+
+      <button type="submit" class="btn btn-primary rf-submit" data-i18n="rf_send">Send request</button>
+      <p class="rf-status" id="rf-status" role="status" aria-live="polite"></p>
+    </form>
   </div>
 </section>
 
@@ -423,10 +476,6 @@
 </footer>
 
 <script>
-  /* ============================================================
-     Checkout is handled by Snipcart (see the #snipcart tag at the
-     bottom of this file). Paste your PUBLIC API KEY there to go live.
-     ============================================================ */
 
   /* ============================================================
      2) TRANSLATIONS
@@ -448,20 +497,32 @@
       gallery_eyebrow:"What you get",
       gallery_title:"From the print bed to your wall.",
       gallery_lede:"Real photos of the printed teeth, the mounting kit, and the finished installation.",
+      req_eyebrow:"Request & order",
+      req_title:"Send your request.",
+      req_lede:"Fill in the form and we'll reply by email with the final quote — shipping included for the finished set — and payment details. No card needed here.",
+      rf_product:"Product", rf_insurance:"Transport insurance (finished set)",
+      rf_buyertype:"Buyer type", rf_company:"Company (if B2B)",
+      rf_vat:"VAT number / P.IVA (B2B)", rf_codice:"Codice Univoco / PEC (Italy, B2B)",
+      rf_name:"Full name", rf_email:"Email", rf_phone:"Phone (optional)", rf_country:"Country",
+      rf_address:"Shipping address (for the finished set)", rf_message:"Message",
+      rf_terms:'I accept the <a href="terms/" target="_blank" rel="noopener">Terms of Sale</a> and the privacy policy.',
+      rf_send:"Send request",
+      opt_file:"STL file — €369 + VAT", opt_fin:"Finished set — €1,990 + VAT + shipping", opt_q:"Not sure / I have a question",
+      opt_no:"No", opt_yes:"Yes (+€35)", opt_private:"Private", opt_business:"Business (B2B)",
       shop_eyebrow:"Two ways to get it",
       shop_title:"Print it yourself, or have it built.",
       shop_lede:"Same design, same 1:1 mounting template. Choose the file if you have a printer and the time — or the finished set if you just want it on the wall.",
       file_tag:"The file", file_title:"Print-ready STL kit",
-      file_sub:"Sent by email after purchase — print at your own pace.",
-      file_avail:"Emailed after payment · within 24 h",
+      file_sub:"Request it below — we send the files once payment is confirmed.",
+      file_avail:"Sent by email after payment is confirmed",
       file_li1:"All 32 teeth as separate, pre-oriented, print-ready STL files",
       file_li2:"Full-scale (1:1) wall-mounting template — exact placement for every tooth",
       file_li3:"Print & assembly guide: settings, filament, orientation, joining",
       file_li4:"Single-clinic licence — print it once for your own space",
       file_btn:"Buy the file — €369",
-      file_fine:"Recommended: ~15 kg PLA and a 250 mm+ print bed. Total ~175 h across all parts.",
+      file_fine:"Recommended: ~15 kg PLA and a 250 mm+ print bed. Total ~175 h across all parts. Prices exclude VAT.",
       fin_tag:"The piece", fin_title:"Built, shipped & ready to mount",
-      fin_sub:"We print and finish it — you hang it up.",
+      fin_sub:"We print and finish it — you hang it up. Request a quote below.",
       file_plus:"+ VAT",
       fin_plus:"+ VAT + shipping", fin_avail:"Made to order · est. delivery ~2 months",
       fin_li1:"The complete Dental Wall, printed and finished — all 32 teeth",
@@ -469,7 +530,7 @@
       fin_li3:"Printed step-by-step mounting instructions",
       fin_li4:"1:1 placement template so it goes up straight, first time",
       fin_btn:"Order the finished set →",
-      fin_fine:"Worldwide shipping, calculated at checkout from your address. Flat-packed in 4 boxes; non-EU orders may incur import duties. Optional transport insurance (+€35) at checkout.",
+      fin_fine:"Shipped worldwide, flat-packed in 4 boxes. We confirm the exact shipping cost by email with your quote; non-EU orders may incur import duties. Prices exclude VAT.",
       specs_eyebrow:"The details", specs_title:"What you're working with.",
       spec_r1_t:"Finished size", spec_r1_d:"Roughly 2 metres tall — needs a clear stretch of wall.",
       spec_r2_t:"Parts", spec_r2_d:"32 teeth, each printed and mounted individually along the wall.",
@@ -483,16 +544,15 @@
       faq_q2:"Can I print copies and sell them?",
       faq_a2:"The €369 licence covers printing one Dental Wall for your own clinic or space. If you're a lab or studio that wants to print and sell the piece to others, message me for a commercial licence.",
       faq_q3:"How is the finished set shipped?",
-      faq_a3:"Flat-packed — the teeth ship as individual pieces (4 boxes) with the mounting template, screws, adhesive and printed instructions. Shipping is calculated automatically at checkout from your delivery address, anywhere in the world. Orders outside the EU may be charged local import duties on arrival, and you can add transport insurance at checkout.",
+      faq_a3:"Flat-packed — the teeth ship as individual pieces (4 boxes) with the mounting template, screws, adhesive and printed instructions. Send a request with your delivery address and we reply by email with the exact shipping cost, worldwide. Orders outside the EU may be charged local import duties on arrival, and transport insurance can be added to your quote.",
       faq_q4:"How long until the finished set arrives?",
-      faq_a4:"It's made to order and printing alone runs ~175 hours, so plan for around two months (about 8 weeks) from order to delivery. You'll get a confirmation the moment you order, and an update when it ships.",
+      faq_a4:"It's made to order and printing alone runs ~175 hours, so plan for around two months (about 8 weeks) from confirmed payment to delivery. We keep you updated by email, including when it ships.",
       faq_q5:"Do I need special tools to mount it?",
       faq_a5:"A drill and the included screws and adhesive. The full-scale template shows exactly where each tooth goes, so alignment is straightforward. Budget an afternoon.",
       foot_tag:"The Dental Wall installation. Designed and printed in Bolzano (Bozen), Italy.",
       foot_contact:"Contact",
       foot_sub:"Dental systems",
       foot_terms:"Terms of sale, withdrawal & privacy",
-      alert:"The shop isn't connected yet.\n\nAdd your Snipcart public API key in the #snipcart tag near the bottom of this file to enable checkout."
     },
     de: {
       docTitle:"Dental Wall — druckfertige Datei oder fertig geliefert",
@@ -510,20 +570,32 @@
       gallery_eyebrow:"Das bekommst du",
       gallery_title:"Vom Druckbett an deine Wand.",
       gallery_lede:"Echte Fotos der gedruckten Zähne, des Montagesets und der fertigen Installation.",
+      req_eyebrow:"Anfrage & Bestellung",
+      req_title:"Sende deine Anfrage.",
+      req_lede:"Fülle das Formular aus und wir antworten per E-Mail mit dem endgültigen Angebot — Versand beim fertigen Set inklusive — und den Zahlungsdaten. Keine Karte nötig.",
+      rf_product:"Produkt", rf_insurance:"Transportversicherung (fertiges Set)",
+      rf_buyertype:"Käuferart", rf_company:"Firma (falls B2B)",
+      rf_vat:"USt-IdNr. / P.IVA (B2B)", rf_codice:"Codice Univoco / PEC (Italien, B2B)",
+      rf_name:"Vollständiger Name", rf_email:"E-Mail", rf_phone:"Telefon (optional)", rf_country:"Land",
+      rf_address:"Lieferadresse (für das fertige Set)", rf_message:"Nachricht",
+      rf_terms:'Ich akzeptiere die <a href="terms/" target="_blank" rel="noopener">AGB</a> und die Datenschutzerklärung.',
+      rf_send:"Anfrage senden",
+      opt_file:"STL-Datei — 369 € zzgl. MwSt.", opt_fin:"Fertiges Set — 1.990 € zzgl. MwSt. und Versand", opt_q:"Unsicher / ich habe eine Frage",
+      opt_no:"Nein", opt_yes:"Ja (+35 €)", opt_private:"Privat", opt_business:"Unternehmen (B2B)",
       shop_eyebrow:"Zwei Wege dazu",
       shop_title:"Selbst drucken oder fertig bestellen.",
       shop_lede:"Gleiches Design, gleiche 1:1-Montageschablone. Nimm die Datei, wenn du einen Drucker und Zeit hast – oder das fertige Set, wenn es einfach nur an die Wand soll.",
       file_tag:"Die Datei", file_title:"Druckfertiges STL-Kit",
-      file_sub:"Nach dem Kauf per E-Mail – druck in deinem Tempo.",
-      file_avail:"Per E-Mail nach Zahlung · innerhalb von 24 Std.",
+      file_sub:"Unten anfragen – wir senden die Dateien nach bestätigter Zahlung.",
+      file_avail:"Per E-Mail nach bestätigter Zahlung",
       file_li1:"Alle 32 Zähne als einzelne, vorausgerichtete, druckfertige STL-Dateien",
       file_li2:"Montageschablone in Originalgröße (1:1) – exakte Position für jeden Zahn",
       file_li3:"Druck- & Montageanleitung: Einstellungen, Filament, Ausrichtung, Verbindung",
       file_li4:"Lizenz für eine Praxis – einmal für die eigenen Räume drucken",
       file_btn:"Datei kaufen — 369 €",
-      file_fine:"Empfohlen: ~15 kg PLA und ein Druckbett ab 250 mm. Insgesamt ~175 Std. über alle Teile.",
+      file_fine:"Empfohlen: ~15 kg PLA und ein Druckbett ab 250 mm. Insgesamt ~175 Std. über alle Teile. Preise zzgl. MwSt.",
       fin_tag:"Das Objekt", fin_title:"Gebaut, geliefert & montagefertig",
-      fin_sub:"Wir drucken und finishen – du hängst sie auf.",
+      fin_sub:"Wir drucken und finishen – du hängst sie auf. Unten ein Angebot anfragen.",
       file_plus:"+ MwSt.",
       fin_plus:"+ MwSt. + Versand", fin_avail:"Auf Bestellung gefertigt · Lieferung ca. 2 Monate",
       fin_li1:"Die komplette Dental Wall, gedruckt und fertig verarbeitet – alle 32 Zähne",
@@ -531,7 +603,7 @@
       fin_li3:"Gedruckte Schritt-für-Schritt-Montageanleitung",
       fin_li4:"1:1-Positionierungsschablone – gerade an der Wand, gleich beim ersten Mal",
       fin_btn:"Fertiges Set bestellen →",
-      fin_fine:"Weltweiter Versand, an der Kasse anhand deiner Adresse berechnet. Flach verpackt in 4 Kartons; bei Bestellungen außerhalb der EU können Einfuhrzölle anfallen. Optionale Transportversicherung (+35 €) an der Kasse.",
+      fin_fine:"Weltweiter Versand, flach verpackt in 4 Kartons. Die genauen Versandkosten nennen wir dir per E-Mail mit dem Angebot; außerhalb der EU können Einfuhrzölle anfallen. Preise zzgl. MwSt.",
       specs_eyebrow:"Die Details", specs_title:"Womit du es zu tun hast.",
       spec_r1_t:"Fertige Größe", spec_r1_d:"Rund 2 Meter hoch – braucht eine freie Wandfläche.",
       spec_r2_t:"Teile", spec_r2_d:"32 Zähne, einzeln gedruckt und einzeln an der Wand montiert.",
@@ -545,16 +617,15 @@
       faq_q2:"Darf ich Kopien drucken und verkaufen?",
       faq_a2:"Die Lizenz für 369 € deckt den Druck einer Dental Wall für die eigene Praxis oder die eigenen Räume ab. Wenn du als Labor oder Studio das Objekt drucken und weiterverkaufen möchtest, melde dich für eine kommerzielle Lizenz.",
       faq_q3:"Wie wird das fertige Set versendet?",
-      faq_a3:"Flach verpackt – die Zähne werden als Einzelteile (4 Kartons) mit Montageschablone, Schrauben, Kleber und gedruckter Anleitung versendet. Der Versand wird an der Kasse automatisch anhand deiner Lieferadresse berechnet, weltweit. Bei Zielen außerhalb der EU können bei Ankunft Einfuhrzölle anfallen, und du kannst an der Kasse eine Transportversicherung hinzufügen.",
+      faq_a3:"Flach verpackt – die Zähne werden als Einzelteile (4 Kartons) mit Montageschablone, Schrauben, Kleber und gedruckter Anleitung versendet. Sende eine Anfrage mit deiner Lieferadresse und wir nennen dir per E-Mail die genauen Versandkosten, weltweit. Außerhalb der EU können bei Ankunft Einfuhrzölle anfallen; eine Transportversicherung kann dem Angebot hinzugefügt werden.",
       faq_q4:"Wie lange dauert es, bis das fertige Set ankommt?",
-      faq_a4:"Es wird auf Bestellung gefertigt und allein der Druck dauert ~175 Std. – rechne mit rund zwei Monaten (etwa 8 Wochen) von der Bestellung bis zur Lieferung. Du erhältst sofort eine Bestätigung und ein Update beim Versand.",
+      faq_a4:"Es wird auf Bestellung gefertigt und allein der Druck dauert ~175 Std. – rechne mit rund zwei Monaten (etwa 8 Wochen) ab bestätigter Zahlung bis zur Lieferung. Wir halten dich per E-Mail auf dem Laufenden, auch beim Versand.",
       faq_q5:"Brauche ich spezielles Werkzeug zur Montage?",
       faq_a5:"Einen Akkuschrauber sowie die mitgelieferten Schrauben und den Kleber. Die Schablone in Originalgröße zeigt genau, wohin jeder Zahn kommt – die Ausrichtung ist unkompliziert. Plane einen Nachmittag ein.",
       foot_tag:"Die Dental-Wall-Installation. Entworfen und gedruckt in Bozen, Italien.",
       foot_contact:"Kontakt",
       foot_sub:"Dentalsysteme",
       foot_terms:"AGB, Widerrufsrecht & Datenschutz",
-      alert:"Der Shop ist noch nicht verbunden.\n\nFüge deinen öffentlichen Snipcart-API-Key im #snipcart-Tag am Ende dieser Datei ein, um die Kasse zu aktivieren."
     },
     it: {
       docTitle:"Dental Wall — file pronto per la stampa o installazione finita",
@@ -572,20 +643,32 @@
       gallery_eyebrow:"Cosa ricevi",
       gallery_title:"Dal piano di stampa alla tua parete.",
       gallery_lede:"Foto reali dei denti stampati, del kit di montaggio e dell’installazione finita.",
+      req_eyebrow:"Richiesta e ordine",
+      req_title:"Invia la tua richiesta.",
+      req_lede:"Compila il modulo e ti risponderemo via email con il preventivo finale — spedizione inclusa per il set finito — e le coordinate di pagamento. Qui non serve la carta.",
+      rf_product:"Prodotto", rf_insurance:"Assicurazione trasporto (set finito)",
+      rf_buyertype:"Tipo di acquirente", rf_company:"Azienda (se B2B)",
+      rf_vat:"Partita IVA (B2B)", rf_codice:"Codice Univoco / PEC (Italia, B2B)",
+      rf_name:"Nome e cognome", rf_email:"Email", rf_phone:"Telefono (facoltativo)", rf_country:"Paese",
+      rf_address:"Indirizzo di spedizione (per il set finito)", rf_message:"Messaggio",
+      rf_terms:'Accetto le <a href="terms/" target="_blank" rel="noopener">condizioni di vendita</a> e la privacy.',
+      rf_send:"Invia richiesta",
+      opt_file:"File STL — 369 € + IVA", opt_fin:"Set finito — 1.990 € + IVA + spedizione", opt_q:"Non so / ho una domanda",
+      opt_no:"No", opt_yes:"Sì (+35 €)", opt_private:"Privato", opt_business:"Azienda (B2B)",
       shop_eyebrow:"Due modi per averla",
       shop_title:"Stampala tu, o falla costruire.",
       shop_lede:"Stesso design, stessa dima di montaggio in scala 1:1. Scegli il file se hai una stampante e il tempo – o il set finito se vuoi solo appenderla al muro.",
       file_tag:"Il file", file_title:"Kit STL pronto per la stampa",
-      file_sub:"Inviato via email dopo l'acquisto – stampa con calma.",
-      file_avail:"Via email dopo il pagamento · entro 24 h",
+      file_sub:"Richiedilo qui sotto – inviamo i file dopo la conferma del pagamento.",
+      file_avail:"Via email dopo la conferma del pagamento",
       file_li1:"Tutti i 32 denti come file STL separati, già orientati e pronti per la stampa",
       file_li2:"Dima di montaggio a grandezza naturale (1:1) – posizione esatta di ogni dente",
       file_li3:"Guida a stampa e assemblaggio: impostazioni, filamento, orientamento, giunzioni",
       file_li4:"Licenza per un singolo studio – stampala una volta per il tuo spazio",
       file_btn:"Acquista il file — 369 €",
-      file_fine:"Consigliato: ~15 kg di PLA e un piano di stampa da 250 mm+. In totale ~175 h su tutti i pezzi.",
+      file_fine:"Consigliato: ~15 kg di PLA e un piano di stampa da 250 mm+. In totale ~175 h su tutti i pezzi. Prezzi IVA esclusa.",
       fin_tag:"L'opera", fin_title:"Costruita, spedita e pronta da montare",
-      fin_sub:"La stampiamo e rifiniamo noi – tu la appendi.",
+      fin_sub:"La stampiamo e rifiniamo noi – tu la appendi. Richiedi un preventivo qui sotto.",
       file_plus:"+ IVA",
       fin_plus:"+ IVA + spedizione", fin_avail:"Su ordinazione · consegna stimata ~2 mesi",
       fin_li1:"La Dental Wall completa, stampata e rifinita – tutti i 32 denti",
@@ -593,7 +676,7 @@
       fin_li3:"Istruzioni di montaggio stampate, passo dopo passo",
       fin_li4:"Dima di posizionamento 1:1 per montarla dritta al primo colpo",
       fin_btn:"Ordina il set finito →",
-      fin_fine:"Spedizione in tutto il mondo, calcolata al checkout in base al tuo indirizzo. Imballata in 4 scatole; per ordini fuori dall'UE possono esserci dazi d'importazione. Assicurazione di trasporto opzionale (+35 €) al checkout.",
+      fin_fine:"Spedizione in tutto il mondo, imballata in 4 scatole. Ti confermiamo il costo esatto di spedizione via email insieme al preventivo; per destinazioni fuori dall’UE possono esserci dazi d’importazione. Prezzi IVA esclusa.",
       specs_eyebrow:"I dettagli", specs_title:"Con cosa hai a che fare.",
       spec_r1_t:"Dimensione finita", spec_r1_d:"Circa 2 metri di altezza – serve una parete libera.",
       spec_r2_t:"Pezzi", spec_r2_d:"32 denti, stampati e montati singolarmente lungo la parete.",
@@ -607,16 +690,15 @@
       faq_q2:"Posso stampare copie e venderle?",
       faq_a2:"La licenza da 369 € copre la stampa di una Dental Wall per il tuo studio o spazio. Se sei un laboratorio o uno studio e vuoi stampare e rivendere l'opera, scrivimi per una licenza commerciale.",
       faq_q3:"Come viene spedito il set finito?",
-      faq_a3:"Spedita smontata – i denti arrivano come pezzi singoli (4 scatole) con dima di montaggio, viti, colla e istruzioni stampate. La spedizione è calcolata automaticamente al checkout in base al tuo indirizzo di consegna, in tutto il mondo. Per destinazioni fuori dall'UE possono essere applicati dazi d'importazione all'arrivo, e al checkout puoi aggiungere un'assicurazione di trasporto.",
+      faq_a3:"Spedita smontata – i denti arrivano come pezzi singoli (4 scatole) con dima di montaggio, viti, colla e istruzioni stampate. Invia una richiesta con il tuo indirizzo e ti comunichiamo via email il costo esatto di spedizione, in tutto il mondo. Per destinazioni fuori dall’UE possono essere applicati dazi all’arrivo; l’assicurazione di trasporto può essere aggiunta al preventivo.",
       faq_q4:"Quanto tempo prima che arrivi il set finito?",
-      faq_a4:"È realizzata su ordinazione e la sola stampa richiede ~175 ore, quindi calcola circa due mesi (all'incirca 8 settimane) dall'ordine alla consegna. Ricevi una conferma subito dopo l'ordine e un aggiornamento alla spedizione.",
+      faq_a4:"È realizzata su ordinazione e la sola stampa richiede ~175 ore, quindi calcola circa due mesi (all’incirca 8 settimane) dalla conferma del pagamento alla consegna. Ti aggiorniamo via email, anche alla spedizione.",
       faq_q5:"Servono attrezzi speciali per il montaggio?",
       faq_a5:"Un trapano e le viti e la colla incluse. La dima a grandezza naturale mostra esattamente dove va ogni dente, quindi l'allineamento è semplice. Metti in conto un pomeriggio.",
       foot_tag:"L'installazione Dental Wall. Progettata e stampata a Bolzano (Bozen), Italia.",
       foot_contact:"Contatto",
       foot_sub:"Sistemi dentali",
       foot_terms:"Condizioni di vendita, recesso e privacy",
-      alert:"Il negozio non è ancora collegato.\n\nAggiungi la tua chiave API pubblica di Snipcart nel tag #snipcart in fondo a questo file per attivare il checkout."
     }
   };
 
@@ -637,6 +719,11 @@
       if(val === undefined) return;
       if(val.indexOf("<") !== -1) el.innerHTML = val;
       else el.textContent = val;
+    });
+
+    document.querySelectorAll("[data-i18n-opt]").forEach(el=>{
+      const val = dict[el.getAttribute("data-i18n-opt")];
+      if(val !== undefined){ el.textContent = val; el.value = val; }
     });
 
     document.querySelectorAll(".lang button").forEach(b=>{
@@ -665,13 +752,69 @@
     b.addEventListener("click", ()=> applyLang(b.getAttribute("data-lang")));
   });
 
-/* checkout handled directly by Snipcart */
+
 
   /* Scroll reveals */
   const io=new IntersectionObserver((entries)=>{
     entries.forEach(e=>{ if(e.isIntersecting){ e.target.classList.add("in"); io.unobserve(e.target);} });
   },{threshold:.12});
   document.querySelectorAll(".reveal").forEach(el=>io.observe(el));
+
+  /* Request form: product buttons, conditional fields, AJAX submit */
+  (function requestForm(){
+    const form = document.getElementById("reqForm");
+    if(!form) return;
+    const product = document.getElementById("rf-product");
+    const insWrap = document.getElementById("rf-insurance-wrap");
+    const buyer = document.getElementById("rf-buyertype");
+    const b2bRow = form.querySelector(".rf-b2b");
+    const status = document.getElementById("rf-status");
+
+    function syncProduct(){ insWrap.style.display = (product.value.indexOf("Finished")===0) ? "" : "none"; }
+    function syncBuyer(){ b2bRow.hidden = (buyer.value !== "Business (B2B)"); }
+    product.addEventListener("change", syncProduct);
+    buyer.addEventListener("change", syncBuyer);
+    syncProduct(); syncBuyer();
+
+    // product buttons preselect + scroll
+    document.querySelectorAll(".req-btn").forEach(btn=>{
+      btn.addEventListener("click", ()=>{
+        const p = btn.getAttribute("data-product");
+        product.value = (p==="finished")
+          ? product.options[1].value
+          : product.options[0].value;
+        syncProduct();
+        document.getElementById("request").scrollIntoView({behavior:"smooth", block:"start"});
+        setTimeout(()=>form.querySelector('input[name="Name"]').focus(), 500);
+      });
+    });
+
+    const MSG = {
+      it:{ ok:"Richiesta inviata. Ti risponderemo via email al più presto.", err:"Invio non riuscito. Riprova o scrivi a lukas.amplatz@dentag-italia.com.", sending:"Invio in corso…" },
+      de:{ ok:"Anfrage gesendet. Wir melden uns in Kürze per E-Mail.", err:"Senden fehlgeschlagen. Bitte erneut versuchen oder an lukas.amplatz@dentag-italia.com schreiben.", sending:"Wird gesendet…" },
+      en:{ ok:"Request sent. We'll reply by email shortly.", err:"Sending failed. Please try again or email lukas.amplatz@dentag-italia.com.", sending:"Sending…" }
+    };
+    function msg(k){ return (MSG[LANG]||MSG.en)[k]; }
+
+    form.addEventListener("submit", async (e)=>{
+      e.preventDefault();
+      status.className="rf-status"; status.textContent=msg("sending");
+      try{
+        const res = await fetch(form.action, {
+          method:"POST", body:new FormData(form),
+          headers:{ "Accept":"application/json" }
+        });
+        if(res.ok){
+          form.reset(); syncProduct(); syncBuyer();
+          status.className="rf-status ok"; status.textContent=msg("ok");
+        } else {
+          status.className="rf-status err"; status.textContent=msg("err");
+        }
+      }catch(_){
+        status.className="rf-status err"; status.textContent=msg("err");
+      }
+    });
+  })();
 
   /* Hero slideshow: auto-play, arrows, dots, swipe, missing-image safe */
   (function slideshow(){
@@ -744,38 +887,6 @@
   })();
 </script>
 
-<!-- ===========================================================
-     SNIPCART SETTINGS
-     Replace ZjQ2YzcwZmMtYzk2NC00ZTNkLWFiNmUtZDA1NDdmYThhZGIzNjM5MTkwMDIwNTEzMzgxODM1 with your public API key.
-     Shipping (worldwide, by address) + the insurance option are
-     configured in your Snipcart dashboard. See notes at top of file.
-     =========================================================== -->
-
-<!-- ===========================================================
-     SNIPCART — CAMPI PERSONALIZZATI DELL'ORDINE
-     Compaiono nel checkout: fattura B2B (billing) e consenso (payment).
-     I valori arrivano nell'ordine su Snipcart > Orders.
-     =========================================================== -->
-<div id="snipcart-templates" style="display:none">
-
-
-  <payment section="top">
-    <fieldset class="snipcart-form__set">
-      <div class="snipcart-form__field">
-        <div class="snipcart-form__field-checkbox">
-          <snipcart-checkbox name="termsAccepted" required></snipcart-checkbox>
-          <snipcart-label for="termsAccepted" class="snipcart__font--tiny snipcart-form__label--checkbox">
-            I accept the <a href="https://amplatzlukas.com/dentalwall/terms/" target="_blank" rel="noopener">Terms of Sale</a>. For the digital STL kit I consent to immediate delivery and acknowledge that I thereby lose my right of withdrawal.
-          </snipcart-label>
-        </div>
-      </div>
-    </fieldset>
-  </payment>
-
-</div>
-
-<div hidden id="snipcart" data-api-key="ZjQ2YzcwZmMtYzk2NC00ZTNkLWFiNmUtZDA1NDdmYThhZGIzNjM5MTkwMDIwNTEzMzgxODM1" data-config-modal-style="side"></div>
-<script async src="https://cdn.snipcart.com/themes/v3.7.3/default/snipcart.js"></script>
 <!-- model-viewer (interactive 3D + AR) -->
 <script type="module" src="https://ajax.googleapis.com/ajax/libs/model-viewer/4.3.1/model-viewer.min.js"></script>
 </body>
