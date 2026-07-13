@@ -122,8 +122,8 @@
   .rf-status{text-align:center;font-size:14.5px;margin:4px 0 0;min-height:1.2em;}
   .rf-status.ok{color:#7fc9a0;}
   .rf-status.err{color:#e0916f;}
-  .cards{display:grid;grid-template-columns:1fr 1fr;gap:20px;}
-  @media(max-width:820px){ .cards{grid-template-columns:1fr;} }
+  .cards{display:grid;grid-template-columns:repeat(3,1fr);gap:20px;}
+  @media(max-width:900px){ .cards{grid-template-columns:1fr;} }
   .card{background:var(--wall-2);border:1px solid var(--line);border-radius:20px;padding:30px;display:flex;flex-direction:column;position:relative;}
   .card.feature{border-color:var(--brass-2);box-shadow:0 0 0 1px rgba(205,160,90,.15), 0 24px 60px rgba(0,0,0,.35);}
   .card-tag{font-family:"IBM Plex Mono",monospace;font-size:11px;letter-spacing:.2em;text-transform:uppercase;color:var(--brass);}
@@ -304,6 +304,22 @@
         <button class="btn btn-primary req-btn" data-product="finished" data-i18n="fin_btn">Order the finished set →</button>
         <p class="fineprint" data-i18n="fin_fine">Shipped worldwide, flat-packed in 4 boxes. We confirm the exact shipping cost by email with your quote; non-EU orders may incur import duties. Prices exclude VAT.</p>
       </div>
+
+      <div class="card reveal">
+        <span class="card-tag" data-i18n="cus_tag">Custom</span>
+        <h3 data-i18n="cus_title">Your own design</h3>
+        <div class="sub" data-i18n="cus_sub">Not just human teeth — tell us what you want and we'll make it.</div>
+        <div class="price"><span class="amt" data-i18n="cus_price">On request</span></div>
+        <div class="avail" data-i18n="cus_avail">Made to order · quoted per project</div>
+        <ul class="list">
+          <li data-i18n="cus_li1">Dog, cat, crocodile — or any species' dentition</li>
+          <li data-i18n="cus_li2">Custom colours, finishes and materials</li>
+          <li data-i18n="cus_li3">Custom size, layout or number of teeth</li>
+          <li data-i18n="cus_li4">File or finished piece — you choose</li>
+        </ul>
+        <button class="btn btn-primary req-btn" data-product="custom" data-i18n="cus_btn">Request a custom design →</button>
+        <p class="fineprint" data-i18n="cus_fine">Tell us your idea in the form and we'll reply with a concept and a price.</p>
+      </div>
     </div>
   </div>
 </section>
@@ -343,6 +359,7 @@
           <select name="Product" id="rf-product" required>
             <option value="STL file — €369 + VAT" data-i18n-opt="opt_file">STL file — €369 + VAT</option>
             <option value="Finished set — €1,990 + VAT + shipping" data-i18n-opt="opt_fin">Finished set — €1,990 + VAT + shipping</option>
+            <option value="Custom design — price on request" data-i18n-opt="opt_custom">Custom design — price on request</option>
             <option value="Not sure / I have a question" data-i18n-opt="opt_q">Not sure / I have a question</option>
           </select>
         </label>
@@ -507,7 +524,16 @@
       rf_address:"Shipping address (for the finished set)", rf_message:"Message",
       rf_terms:'I accept the <a href="terms/" target="_blank" rel="noopener">Terms of Sale</a> and the privacy policy.',
       rf_send:"Send request",
-      opt_file:"STL file — €369 + VAT", opt_fin:"Finished set — €1,990 + VAT + shipping", opt_q:"Not sure / I have a question",
+      cus_tag:"Custom", cus_title:"Your own design",
+      cus_sub:"Not just human teeth — tell us what you want and we'll make it.",
+      cus_price:"On request", cus_avail:"Made to order · quoted per project",
+      cus_li1:"Dog, cat, crocodile — or any species' dentition",
+      cus_li2:"Custom colours, finishes and materials",
+      cus_li3:"Custom size, layout or number of teeth",
+      cus_li4:"File or finished piece — you choose",
+      cus_btn:"Request a custom design →",
+      cus_fine:"Tell us your idea in the form and we'll reply with a concept and a price.",
+      opt_file:"STL file — €369 + VAT", opt_fin:"Finished set — €1,990 + VAT + shipping", opt_custom:"Custom design — price on request", opt_q:"Not sure / I have a question",
       opt_no:"No", opt_yes:"Yes (+€35)", opt_private:"Private", opt_business:"Business (B2B)",
       shop_eyebrow:"Two ways to get it",
       shop_title:"Print it yourself, or have it built.",
@@ -580,7 +606,16 @@
       rf_address:"Lieferadresse (für das fertige Set)", rf_message:"Nachricht",
       rf_terms:'Ich akzeptiere die <a href="terms/" target="_blank" rel="noopener">AGB</a> und die Datenschutzerklärung.',
       rf_send:"Anfrage senden",
-      opt_file:"STL-Datei — 369 € zzgl. MwSt.", opt_fin:"Fertiges Set — 1.990 € zzgl. MwSt. und Versand", opt_q:"Unsicher / ich habe eine Frage",
+      cus_tag:"Individuell", cus_title:"Dein eigenes Design",
+      cus_sub:"Nicht nur menschliche Zähne — sag uns, was du willst, und wir setzen es um.",
+      cus_price:"Auf Anfrage", cus_avail:"Auf Bestellung · Preis pro Projekt",
+      cus_li1:"Hund, Katze, Krokodil — oder das Gebiss jeder Art",
+      cus_li2:"Individuelle Farben, Oberflächen und Materialien",
+      cus_li3:"Individuelle Größe, Anordnung oder Zähnezahl",
+      cus_li4:"Datei oder fertiges Objekt — du entscheidest",
+      cus_btn:"Individuelles Design anfragen →",
+      cus_fine:"Beschreib deine Idee im Formular und wir antworten mit Konzept und Preis.",
+      opt_file:"STL-Datei — 369 € zzgl. MwSt.", opt_fin:"Fertiges Set — 1.990 € zzgl. MwSt. und Versand", opt_custom:"Individuelles Design — Preis auf Anfrage", opt_q:"Unsicher / ich habe eine Frage",
       opt_no:"Nein", opt_yes:"Ja (+35 €)", opt_private:"Privat", opt_business:"Unternehmen (B2B)",
       shop_eyebrow:"Zwei Wege dazu",
       shop_title:"Selbst drucken oder fertig bestellen.",
@@ -653,7 +688,16 @@
       rf_address:"Indirizzo di spedizione (per il set finito)", rf_message:"Messaggio",
       rf_terms:'Accetto le <a href="terms/" target="_blank" rel="noopener">condizioni di vendita</a> e la privacy.',
       rf_send:"Invia richiesta",
-      opt_file:"File STL — 369 € + IVA", opt_fin:"Set finito — 1.990 € + IVA + spedizione", opt_q:"Non so / ho una domanda",
+      cus_tag:"Personalizzato", cus_title:"Il tuo design",
+      cus_sub:"Non solo denti umani — dicci cosa vuoi e lo realizziamo.",
+      cus_price:"Su richiesta", cus_avail:"Su ordinazione · preventivo per progetto",
+      cus_li1:"Cane, gatto, coccodrillo — o la dentatura di qualsiasi specie",
+      cus_li2:"Colori, finiture e materiali personalizzati",
+      cus_li3:"Dimensione, disposizione o numero di denti personalizzati",
+      cus_li4:"File o opera finita — scegli tu",
+      cus_btn:"Richiedi un design personalizzato →",
+      cus_fine:"Raccontaci la tua idea nel modulo e ti rispondiamo con un concept e un prezzo.",
+      opt_file:"File STL — 369 € + IVA", opt_fin:"Set finito — 1.990 € + IVA + spedizione", opt_custom:"Design personalizzato — prezzo su richiesta", opt_q:"Non so / ho una domanda",
       opt_no:"No", opt_yes:"Sì (+35 €)", opt_private:"Privato", opt_business:"Azienda (B2B)",
       shop_eyebrow:"Due modi per averla",
       shop_title:"Stampala tu, o falla costruire.",
@@ -780,9 +824,8 @@
     document.querySelectorAll(".req-btn").forEach(btn=>{
       btn.addEventListener("click", ()=>{
         const p = btn.getAttribute("data-product");
-        product.value = (p==="finished")
-          ? product.options[1].value
-          : product.options[0].value;
+        const map = { file:0, finished:1, custom:2 };
+        product.selectedIndex = (p in map) ? map[p] : 0;
         syncProduct();
         document.getElementById("request").scrollIntoView({behavior:"smooth", block:"start"});
         setTimeout(()=>form.querySelector('input[name="Name"]').focus(), 500);
