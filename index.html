@@ -9,7 +9,7 @@
 <!--
   =========================================================
   LANDING PAGE — amplatzlukas.com
-  Set the three links in the LINKS object in the <script>
+  Set the links in the LINKS object in the <script>
   at the bottom of this file.
   =========================================================
 -->
@@ -106,7 +106,7 @@
   <div class="wrap">
     <span class="eyebrow">Bolzano · Bozen, Italy</span>
     <h1>Lukas Amplatz</h1>
-    <p class="sub">Online manuals and the Dental Wall shop. Pick where you're headed.</p>
+    <p class="sub">Online manuals, a virtual showroom, and the Dental Wall shop. Pick where you're headed.</p>
   </div>
 </header>
 
@@ -135,6 +135,18 @@
           <span>Online manual &amp; setup guide</span>
         </span>
         <span class="tag">Manual</span>
+        <span class="arrow" aria-hidden="true">→</span>
+      </a>
+
+      <a class="card" id="lnk-demo" href="#">
+        <span class="ico" aria-hidden="true">
+          <svg viewBox="0 0 24 24"><rect x="3" y="5" width="18" height="16" rx="2"/><path d="M3 10h18M8 3v4M16 3v4"/><path d="M10 14.6l1.8 1.8 3.2-3.6"/></svg>
+        </span>
+        <span class="txt">
+          <b>Book a demo</b>
+          <span>Virtual showroom — a live online walkthrough</span>
+        </span>
+        <span class="tag">Book</span>
         <span class="arrow" aria-hidden="true">→</span>
       </a>
 
@@ -168,12 +180,14 @@
 
 <script>
   /* ==========================================================
-     1) SET YOUR THREE LINKS HERE
+     1) SET YOUR LINKS HERE
      Use absolute URLs (https://...) or same-site paths (/rotoclick/)
+     External links (http/https on another host) open in a new tab.
      ========================================================== */
   const LINKS = {
     rotoclick:  "/rotoclick/",
     carousel:   "/carousel/",
+    demo:       "https://cal.com/dentag-italia-2jbenb",
     dentalwall: "/dentalwall/"
   };
 
@@ -182,7 +196,7 @@
     if (!el) return;
     if (url && url.trim()) {
       el.href = url;
-      // open the external shop in a new tab, keep manuals in-tab
+      // open external links (e.g. the shop, the Cal.com demo) in a new tab, keep same-site manuals in-tab
       if (/^https?:\/\//i.test(url) && !url.includes(location.hostname)) {
         el.target = "_blank";
         el.rel = "noopener";
